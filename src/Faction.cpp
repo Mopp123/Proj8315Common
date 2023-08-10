@@ -3,6 +3,13 @@
 
 namespace gamecommon
 {
+    Faction::Faction() :
+        _name("")
+    {
+        memset(_nameData, 0, FACTION_NAME_SIZE);
+        memset(_deployments, 0, FACTION_MAX_DEPLOY_COUNT);
+    }
+
     Faction::Faction(const GC_byte* nameData, size_t nameSize)
     {
         if (nameSize > FACTION_NAME_SIZE)
@@ -34,6 +41,6 @@ namespace gamecommon
 
     size_t Faction::get_netw_size()
     {
-        return FACTION_NAME_SIZE;
+        return FACTION_NETW_SIZE;
     }
 }

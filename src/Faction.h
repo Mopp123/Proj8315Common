@@ -1,12 +1,15 @@
 #pragma once
 
 #include "Common.h"
+#include "Debug.h"
 #include <cstring>
 #include <string>
 
 
 #define FACTION_NAME_SIZE 32
 #define FACTION_MAX_DEPLOY_COUNT 16
+
+#define FACTION_NETW_SIZE FACTION_NAME_SIZE
 
 #define NULL_FACTION Faction("", 0)
 
@@ -26,6 +29,7 @@ namespace gamecommon
         std::string _name;
 
     public:
+        Faction();
         Faction(const GC_byte* nameData, size_t nameSize);
         Faction(const Faction& other);
 

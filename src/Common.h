@@ -19,9 +19,14 @@
 
 #define USER_NAME_SIZE 	32
 #define USER_PASSWD_SIZE 32
-#define MOTD_LEN        256
+#define MOTD_LEN        256 // NOT USED ANYMORE!!!
 
 #define NULL_USER User(nullptr, 0, nullptr, 0)
+
+#define USER_OBSERVE_RADIUS 15
+#define USER_OBSERVE_WIDTH (15 * 2 + 1)
+#define USER_OBSERVE_AREA (USER_OBSERVE_WIDTH * USER_OBSERVE_WIDTH)
+
 
 namespace gamecommon
 {
