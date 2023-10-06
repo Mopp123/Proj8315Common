@@ -3,7 +3,7 @@
 
 namespace gamecommon
 {
-    WorldStateMsg::WorldStateMsg(GC_byte* pData, size_t dataSize) :
+    WorldStateMsg::WorldStateMsg(const GC_byte* pData, size_t dataSize) :
         Message(pData, dataSize, MESSAGE_REQUIRED_SIZE__WorldStateMsg)
     {}
 
@@ -12,7 +12,7 @@ namespace gamecommon
     {}
 
 
-    UpdateObserverMsg::UpdateObserverMsg(GC_byte* pData, size_t dataSize) :
+    UpdateObserverMsg::UpdateObserverMsg(const GC_byte* pData, size_t dataSize) :
         Message(pData, dataSize, MESSAGE_REQUIRED_SIZE__UpdateObserverMsg)
     {
         if (_isValid)
@@ -51,7 +51,7 @@ namespace gamecommon
     }
 
     // NOTE: Not sure if this works. Yet to be tested!
-    FactionsMsg::FactionsMsg(GC_byte* pData, size_t dataSize) :
+    FactionsMsg::FactionsMsg(const GC_byte* pData, size_t dataSize) :
         Message(pData, dataSize, MESSAGE_SIZE_CAP__FactionsMsg)
     {
         if (_isValid)

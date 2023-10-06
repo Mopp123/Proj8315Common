@@ -15,7 +15,7 @@ namespace gamecommon
     class WorldStateMsg : public Message
     {
     public:
-        WorldStateMsg(GC_byte* pData, size_t dataSize);
+        WorldStateMsg(const GC_byte* pData, size_t dataSize);
         WorldStateMsg(const WorldStateMsg& other);
         ~WorldStateMsg() {}
     };
@@ -29,7 +29,7 @@ namespace gamecommon
         int32_t _radius = 15;
 
     public:
-        UpdateObserverMsg(GC_byte* pData, size_t dataSize);
+        UpdateObserverMsg(const GC_byte* pData, size_t dataSize);
         UpdateObserverMsg(int32_t x, int32_t z, int32_t radius);
         UpdateObserverMsg(const UpdateObserverMsg& other);
         ~UpdateObserverMsg() {}
@@ -45,9 +45,10 @@ namespace gamecommon
         std::vector<Faction> _factions;
 
     public:
-        FactionsMsg(GC_byte* pData, size_t dataSize);
+        FactionsMsg(const GC_byte* pData, size_t dataSize);
         FactionsMsg(const FactionsMsg& other);
         FactionsMsg(const std::vector<Faction>& factions);
         ~FactionsMsg() {}
+        inline const std::vector<Faction>& getFactions() const { return _factions; }
     };
 }
