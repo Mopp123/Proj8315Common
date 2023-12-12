@@ -3,7 +3,7 @@
 
 namespace gamecommon
 {
-    LoginRequest::LoginRequest(GC_byte* pData, size_t dataSize) :
+    LoginRequest::LoginRequest(const GC_byte* pData, size_t dataSize) :
         Message(pData, dataSize, MESSAGE_REQUIRED_SIZE__LoginRequest)
     {
         if (_isValid)
@@ -39,7 +39,7 @@ namespace gamecommon
     }
 
 
-    LoginResponse::LoginResponse(GC_byte* pData, size_t dataSize) :
+    LoginResponse::LoginResponse(const GC_byte* pData, size_t dataSize) :
         Message(pData, dataSize, MESSAGE_REQUIRED_SIZE__LoginResponse)
     {
         if (_isValid)
@@ -86,7 +86,7 @@ namespace gamecommon
     }
 
 
-    UserRegisterRequest::UserRegisterRequest(GC_byte* pData, size_t dataSize) :
+    UserRegisterRequest::UserRegisterRequest(const GC_byte* pData, size_t dataSize) :
         Message(pData, dataSize, MESSAGE_REQUIRED_SIZE__UserRegisterRequest)
     {
         if (_isValid)
@@ -128,7 +128,7 @@ namespace gamecommon
     }
 
 
-    UserRegisterResponse::UserRegisterResponse(GC_byte* pData, size_t dataSize) :
+    UserRegisterResponse::UserRegisterResponse(const GC_byte* pData, size_t dataSize) :
         Message(pData, dataSize, MESSAGE_REQUIRED_SIZE__UserRegisterResponse)
     {
         if (_isValid)

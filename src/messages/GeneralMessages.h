@@ -17,7 +17,7 @@ namespace gamecommon
         GC_byte _password[USER_PASSWD_SIZE];
 
     public:
-        LoginRequest(GC_byte* pData, size_t dataSize);
+        LoginRequest(const GC_byte* pData, size_t dataSize);
         LoginRequest(GC_byte* username, size_t usernameSize, GC_byte* password, size_t passwordSize);
         LoginRequest(const LoginRequest& other);
         ~LoginRequest() {}
@@ -36,10 +36,12 @@ namespace gamecommon
         GC_byte _error[MESSAGE_ERR_STR_SIZE];
 
     public:
-        LoginResponse(GC_byte* pData, size_t dataSize);
+        LoginResponse(const GC_byte* pData, size_t dataSize);
         LoginResponse(bool success, Faction faction, const std::string error);
         LoginResponse(const LoginResponse& other);
         ~LoginResponse() {}
+        inline bool getSuccess() const { return _success; }
+        inline const Faction& getFaction() const { return _faction; }
         inline std::string getError() const { return std::string(_error, MESSAGE_ERR_STR_SIZE); }
     };
 
@@ -53,7 +55,7 @@ namespace gamecommon
         GC_byte _repassword[USER_PASSWD_SIZE];
 
     public:
-        UserRegisterRequest(GC_byte* pData, size_t dataSize);
+        UserRegisterRequest(const GC_byte* pData, size_t dataSize);
         UserRegisterRequest(GC_byte* username, size_t usernameSize, GC_byte* password, size_t passwordSize, GC_byte* repassword, size_t repasswordSize);
         UserRegisterRequest(const UserRegisterRequest& other);
         ~UserRegisterRequest() {}
@@ -74,7 +76,7 @@ namespace gamecommon
         GC_byte _error[MESSAGE_ERR_STR_SIZE];
 
     public:
-        UserRegisterResponse(GC_byte* pData, size_t dataSize);
+        UserRegisterResponse(const GC_byte* pData, size_t dataSize);
         UserRegisterResponse(bool success, const std::string error);
         UserRegisterResponse(const UserRegisterResponse& other);
         ~UserRegisterResponse() {}

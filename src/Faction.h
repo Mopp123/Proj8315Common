@@ -43,5 +43,6 @@ namespace gamecommon
         inline void markUpdated(bool arg) { _updated = arg; }
 
         bool operator==(const Faction& other) { return memcmp(_nameData, other._nameData, FACTION_NAME_SIZE) == 0; }
+        bool operator!=(const Faction& other) { return memcmp(_nameData, other._nameData, FACTION_NAME_SIZE) != 0; }
     };
 }
