@@ -36,11 +36,15 @@ namespace gamecommon
         GC_byte _nameData[USER_NAME_SIZE];
         GC_byte _passwordData[USER_PASSWD_SIZE];
         std::string _nameStr = "";
+        std::string _passwordStr = "";
         bool _isLoggedIn = false;
 
         int _xPos = 0;
         int _zPos = 0;
         int _observeRadius = 15;
+
+        // When user logged in this is used to identify its' db record
+        std::string id = "";
 
         // Key used to identify the user's faction in "Game"
         // NOTE: Used std::string here, since this data is not supposed to be netw data

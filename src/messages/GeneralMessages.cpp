@@ -51,7 +51,7 @@ namespace gamecommon
         }
     }
 
-    LoginResponse::LoginResponse(bool success, Faction faction, GC_byte* error, size_t errorSize) :
+    LoginResponse::LoginResponse(bool success, Faction faction, const std::string error) :
         Message(MESSAGE_TYPE__LoginResponse, MESSAGE_REQUIRED_SIZE__LoginResponse)
     {
         if (_isValid)
@@ -59,11 +59,18 @@ namespace gamecommon
             GC_byte successByte = (GC_byte)success;
             addData(&successByte, 1);
             addData((GC_byte*)&faction, Faction::get_netw_size());
-            addData(error, MESSAGE_ERR_STR_SIZE);
+
+            // Make sure error message data doesn't contain any funny bytes
+            // (if message smaller than max size -> make sure all bytes = 0)
+            memset(_error, 0, MESSAGE_ERR_STR_SIZE);
+            size_t errDataSize = error.size();
+            if (errDataSize > MESSAGE_ERR_STR_SIZE)
+                errDataSize = MESSAGE_ERR_STR_SIZE;
+            memcpy(_error, error.data(), errDataSize);
+            addData(_error, MESSAGE_ERR_STR_SIZE);
 
             _success = success;
             _faction = faction;
-            memcpy(_error, error, MESSAGE_ERR_STR_SIZE);
         }
     }
 
@@ -131,17 +138,24 @@ namespace gamecommon
         }
     }
 
-    UserRegisterResponse::UserRegisterResponse(bool success, GC_byte* error) :
+    UserRegisterResponse::UserRegisterResponse(bool success, const std::string error) :
         Message(MESSAGE_TYPE__UserRegisterResponse, MESSAGE_REQUIRED_SIZE__UserRegisterResponse)
     {
         if (_isValid)
         {
             GC_byte successByte = (GC_byte)success;
             addData(&successByte, 1);
-            addData(error, MESSAGE_ERR_STR_SIZE);
+
+            // Make sure error message data doesn't contain any funny bytes
+            // (if message smaller than max size -> make sure all bytes = 0)
+            memset(_error, 0, MESSAGE_ERR_STR_SIZE);
+            size_t errDataSize = error.size();
+            if (errDataSize > MESSAGE_ERR_STR_SIZE)
+                errDataSize = MESSAGE_ERR_STR_SIZE;
+            memcpy(_error, error.data(), errDataSize);
+            addData(_error, MESSAGE_ERR_STR_SIZE);
 
             _success = success;
-            memcpy(_error, error, MESSAGE_ERR_STR_SIZE);
         }
     }
 

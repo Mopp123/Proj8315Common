@@ -37,7 +37,7 @@ namespace gamecommon
 
     public:
         LoginResponse(GC_byte* pData, size_t dataSize);
-        LoginResponse(bool success, Faction faction, GC_byte* error, size_t errorSize);
+        LoginResponse(bool success, Faction faction, const std::string error);
         LoginResponse(const LoginResponse& other);
         ~LoginResponse() {}
         inline std::string getError() const { return std::string(_error, MESSAGE_ERR_STR_SIZE); }
@@ -75,7 +75,7 @@ namespace gamecommon
 
     public:
         UserRegisterResponse(GC_byte* pData, size_t dataSize);
-        UserRegisterResponse(bool success, GC_byte* error);
+        UserRegisterResponse(bool success, const std::string error);
         UserRegisterResponse(const UserRegisterResponse& other);
         ~UserRegisterResponse() {}
         inline std::string getError() const { return std::string(_error, MESSAGE_ERR_STR_SIZE); }

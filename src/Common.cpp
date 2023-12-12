@@ -15,10 +15,12 @@ namespace gamecommon
         if (passwdData != nullptr)
             memcpy(_passwordData, passwdData, passwdSize);
         _nameStr = std::string(nameData, nameSize);
+        _passwordStr = std::string(passwdData, passwdSize);
     }
 
     User::User(const User& other) :
         _nameStr(other._nameStr),
+        _passwordStr(other._passwordStr),
         _isLoggedIn(other._isLoggedIn),
         _xPos(other._xPos),
         _zPos(other._zPos),
