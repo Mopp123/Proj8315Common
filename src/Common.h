@@ -21,7 +21,7 @@
 #define USER_PASSWD_SIZE 32
 #define MOTD_LEN        256 // NOT USED ANYMORE!!!
 
-#define NULL_USER User(nullptr, 0, nullptr, 0)
+#define NULL_USER User("", nullptr, 0, 0, 0)
 
 #define USER_OBSERVE_RADIUS 15
 #define USER_OBSERVE_WIDTH (15 * 2 + 1)
@@ -33,6 +33,9 @@ namespace gamecommon
     class User
     {
     private:
+        // When user logged in this is used to identify its' db record
+        std::string _id = "";
+
         GC_byte _nameData[USER_NAME_SIZE];
         GC_byte _passwordData[USER_PASSWD_SIZE];
         std::string _nameStr = "";
@@ -43,16 +46,13 @@ namespace gamecommon
         int _zPos = 0;
         int _observeRadius = 15;
 
-        // When user logged in this is used to identify its' db record
-        std::string id = "";
-
         // Key used to identify the user's faction in "Game"
         // NOTE: Used std::string here, since this data is not supposed to be netw data
         std::string _factionName = "";
 
     public:
         User() {}
-        User(const GC_byte* nameData, size_t nameSize, const GC_byte*  passwdData, size_t passwdSize);
+        User(const std::string& id, const GC_byte* nameData, size_t nameSize, int tileX, int tileZ);
         User(const User& other);
 
         void updateObserveProperties(int x, int z, int radius);
@@ -65,6 +65,7 @@ namespace gamecommon
 
         inline  bool isLoggedIn() const { return _isLoggedIn; }
 
+        inline const std::string& getID() const { return _id; }
         inline const GC_byte* getNameData() const { return _nameData; }
         inline const GC_byte* getPasswordData() const { return _passwordData; }
         inline const std::string& getName() const { return _nameStr; }

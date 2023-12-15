@@ -2,23 +2,22 @@
 
 namespace gamecommon
 {
-    User::User(const GC_byte* nameData, size_t nameSize, const GC_byte*  passwdData, size_t passwdSize)
+    User::User(const std::string& id,  const GC_byte* nameData, size_t nameSize, int tileX, int tileZ) :
+        _id(id),
+        _xPos(tileX),
+        _zPos(tileZ)
     {
         if (nameSize > USER_NAME_SIZE)
             nameSize = USER_NAME_SIZE;
-        if (passwdSize > USER_PASSWD_SIZE)
-            passwdSize = USER_PASSWD_SIZE;
         memset(_nameData, 0, USER_NAME_SIZE);
         memset(_passwordData, 0, USER_PASSWD_SIZE);
         if (nameData != nullptr)
             memcpy(_nameData, nameData, nameSize);
-        if (passwdData != nullptr)
-            memcpy(_passwordData, passwdData, passwdSize);
         _nameStr = std::string(nameData, nameSize);
-        _passwordStr = std::string(passwdData, passwdSize);
     }
 
     User::User(const User& other) :
+        _id(other._id),
         _nameStr(other._nameStr),
         _passwordStr(other._passwordStr),
         _isLoggedIn(other._isLoggedIn),
@@ -42,15 +41,11 @@ namespace gamecommon
 
     bool User::operator==(const User& other) const
     {
-        return memcmp(_nameData, other._nameData, USER_NAME_SIZE) == 0 &&
-            _isLoggedIn == other._isLoggedIn &&
-            _factionName == other._factionName;
+        return _id == other._id;
     }
 
     bool User::operator!=(const User& other) const
     {
-        return memcmp(_nameData, other._nameData, USER_NAME_SIZE) != 0 ||
-            _isLoggedIn != other._isLoggedIn ||
-            _factionName != other._factionName;
+        return _id != other._id;
     }
 }
