@@ -33,7 +33,7 @@ namespace gamecommon
         ObjectInfo(
             const std::string& objName,
             const std::string& objDescription,
-            std::vector<std::string>& actionSlots,
+            const std::vector<std::string>& actionSlots,
             GC_ubyte speedVal,
             uint64_t beginState
         );
