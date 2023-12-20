@@ -10,7 +10,8 @@ namespace gamecommon
         memset(_deployments, 0, FACTION_MAX_DEPLOY_COUNT);
     }
 
-    Faction::Faction(const GC_byte* nameData, size_t nameSize)
+    Faction::Faction(const GC_byte* nameData, size_t nameSize, uint32_t id) :
+        _id(id)
     {
         if (nameSize > FACTION_NAME_SIZE)
             nameSize = FACTION_NAME_SIZE;
@@ -20,7 +21,8 @@ namespace gamecommon
         _name = std::string(_nameData, FACTION_NAME_SIZE);
     }
 
-    Faction::Faction(const Faction& other)
+    Faction::Faction(const Faction& other) :
+        _id(other._id)
     {
         memset(_nameData, 0, FACTION_NAME_SIZE);
         memcpy(_nameData, other._nameData, FACTION_NAME_SIZE);
@@ -34,10 +36,12 @@ namespace gamecommon
             memcpy(_deployments, deployments, sizeof(GC_byte) * count);
     }
 
+    /*
     const GC_byte* Faction::getNetwData() const
     {
         return _nameData;
     }
+    */
 
     size_t Faction::get_netw_size()
     {

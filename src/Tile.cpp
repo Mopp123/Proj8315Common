@@ -8,73 +8,84 @@ namespace gamecommon
 {
     void set_tile_uid(uint64_t& tile, uint32_t uid)
     {
-
         memcpy(&tile, &uid, sizeof(uint32_t));
     }
 
     void set_tile_terrelevation(uint64_t& tile, GC_ubyte value)
     {
         bitshit::set_area<uint64_t, GC_ubyte>(
-                tile, value,
-                TILE_STATE_POS_properties + TILE_STATE_POS_terrElevation,
-                TILE_STATE_SIZE_terrElevation
-                );
+            tile, value,
+            TILE_STATE_POS_properties + TILE_STATE_POS_terrElevation,
+            TILE_STATE_SIZE_terrElevation
+        );
     }
     void set_tile_terrtype(uint64_t& tile, GC_ubyte value)
     {
         bitshit::set_area<uint64_t, GC_ubyte>(
-                tile, value,
-                TILE_STATE_POS_properties + TILE_STATE_POS_terrType,
-                TILE_STATE_SIZE_terrType
-                );
+            tile, value,
+            TILE_STATE_POS_properties + TILE_STATE_POS_terrType,
+            TILE_STATE_SIZE_terrType
+        );
     }
     void set_tile_terreffect(uint64_t& tile, GC_ubyte value)
     {
         bitshit::set_area<uint64_t, GC_ubyte>(
-                tile, value,
-                TILE_STATE_POS_properties + TILE_STATE_POS_terrEffect,
-                TILE_STATE_SIZE_terrEffect
-                );
+            tile, value,
+            TILE_STATE_POS_properties + TILE_STATE_POS_terrEffect,
+            TILE_STATE_SIZE_terrEffect
+        );
     }
     void set_tile_thingcategory(uint64_t& tile, GC_ubyte value)
     {
         bitshit::set_area<uint64_t, GC_ubyte>(
-                tile, value,
-                TILE_STATE_POS_properties + TILE_STATE_POS_thingCategory,
-                TILE_STATE_SIZE_thingCategory
-                );
+            tile, value,
+            TILE_STATE_POS_properties + TILE_STATE_POS_thingCategory,
+            TILE_STATE_SIZE_thingCategory
+        );
     }
     void set_tile_thingid(uint64_t& tile, GC_ubyte value)
     {
         bitshit::set_area<uint64_t, GC_ubyte>(
-                tile, value,
-                TILE_STATE_POS_properties + TILE_STATE_POS_thingID,
-                TILE_STATE_SIZE_thingID
-                );
+            tile, value,
+            TILE_STATE_POS_properties + TILE_STATE_POS_thingID,
+            TILE_STATE_SIZE_thingID
+        );
     }
     void set_tile_action(uint64_t& tile, GC_ubyte value)
     {
         bitshit::set_area<uint64_t, GC_ubyte>(
-                tile, value,
-                TILE_STATE_POS_properties + TILE_STATE_POS_action,
-                TILE_STATE_SIZE_action
-                );
+            tile, value,
+            TILE_STATE_POS_properties + TILE_STATE_POS_action,
+            TILE_STATE_SIZE_action
+        );
     }
     void set_tile_facingdir(uint64_t& tile, GC_ubyte value)
     {
         bitshit::set_area<uint64_t, GC_ubyte>(
-                tile, value,
-                TILE_STATE_POS_properties + TILE_STATE_POS_dir,
-                TILE_STATE_SIZE_dir
-                );
+            tile, value,
+            TILE_STATE_POS_properties + TILE_STATE_POS_dir,
+            TILE_STATE_SIZE_dir
+        );
     }
     void set_tile_customvar(uint64_t& tile, GC_ubyte value)
     {
         bitshit::set_area<uint64_t, GC_ubyte>(
-                tile, value,
-                TILE_STATE_POS_properties + TILE_STATE_POS_customVar,
-                TILE_STATE_SIZE_customVar
-                );
+            tile, value,
+            TILE_STATE_POS_properties + TILE_STATE_POS_customVar,
+            TILE_STATE_SIZE_customVar
+        );
+    }
+    // TODO: Some error handling/signaling if this fails?
+    void set_tile_factionid(uint64_t& tile, uint32_t id)
+    {
+        if (id <= TILE_STATE_MAX_factionid)
+        {
+            bitshit::set_area<uint64_t, uint32_t>(
+                tile, id,
+                TILE_STATE_POS_properties + TILE_STATE_POS_factionID,
+                TILE_STATE_SIZE_factionID
+            );
+        }
     }
     void transfer_obj_to(uint64_t& from, uint64_t& to)
     {
