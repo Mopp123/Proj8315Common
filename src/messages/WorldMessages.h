@@ -6,6 +6,8 @@
 
 #define MESSAGE_REQUIRED_SIZE__WorldStateMsg (MESSAGE_ENTRY_SIZE__header + (USER_OBSERVE_AREA * sizeof(uint64_t)))
 #define MESSAGE_REQUIRED_SIZE__UpdateObserverMsg (MESSAGE_ENTRY_SIZE__header + sizeof(int32_t) * 3)
+#define MESSAGE_REQUIRED_SIZE__CreateFactionRequest (MESSAGE_ENTRY_SIZE__header + FACTION_NAME_SIZE)
+#define MESSAGE_REQUIRED_SIZE__CreateFactionResponse (MESSAGE_ENTRY_SIZE__header + 1 + MESSAGE_ERR_STR_SIZE)
 // TODO: Figure out how to deal with faction count limit!
 #define MESSAGE_SIZE_CAP__FactionsMsg (MESSAGE_ENTRY_SIZE__header + Faction::get_netw_size() * 1000)
 
@@ -38,6 +40,26 @@ namespace gamecommon
         inline int32_t getRadius() const { return _radius; }
     };
 
+    class CreateFactionRequest : public Message
+    {
+    public:
+        CreateFactionRequest(const GC_byte* pData, size_t dataSize);
+        CreateFactionRequest(const CreateFactionRequest& other);
+        CreateFactionRequest(const std::string factionName);
+        ~CreateFactionRequest() {}
+        std::string getName() const;
+    };
+
+    class CreateFactionResponse : public Message
+    {
+    public:
+        CreateFactionResponse(const GC_byte* pData, size_t dataSize);
+        CreateFactionResponse(const CreateFactionResponse& other);
+        CreateFactionResponse(bool status, std::string error);
+        ~CreateFactionResponse() {}
+        bool getStatus() const;
+        std::string getErrorMessage() const;
+    };
 
     class FactionsMsg : public Message
     {

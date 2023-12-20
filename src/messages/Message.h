@@ -38,6 +38,8 @@
 #define MESSAGE_TYPE__UserRegisterRequest       0x4
 #define MESSAGE_TYPE__UserRegisterResponse      0x4
 #define MESSAGE_TYPE__ObjInfoLib                0x5
+#define MESSAGE_TYPE__CreateFactionRequest      0x6
+#define MESSAGE_TYPE__CreateFactionResponse     0x7
 // ...
 #define MESSAGE_TYPE__WorldState                0x8
 #define MESSAGE_TYPE__Factions                  0x9

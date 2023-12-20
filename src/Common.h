@@ -37,9 +37,7 @@ namespace gamecommon
         std::string _id = "";
 
         GC_byte _nameData[USER_NAME_SIZE];
-        GC_byte _passwordData[USER_PASSWD_SIZE];
         std::string _nameStr = "";
-        std::string _passwordStr = "";
         bool _isLoggedIn = false;
 
         int _xPos = 0;
@@ -67,7 +65,6 @@ namespace gamecommon
 
         inline const std::string& getID() const { return _id; }
         inline const GC_byte* getNameData() const { return _nameData; }
-        inline const GC_byte* getPasswordData() const { return _passwordData; }
         inline const std::string& getName() const { return _nameStr; }
         inline const std::string& getFactionName() const { return _factionName; }
         inline void setFactionName(const std::string& name) { _factionName = name; }

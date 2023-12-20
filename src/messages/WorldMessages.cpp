@@ -50,6 +50,63 @@ namespace gamecommon
         }
     }
 
+
+    CreateFactionRequest::CreateFactionRequest(const GC_byte* pData, size_t dataSize) :
+        Message(pData, dataSize, MESSAGE_REQUIRED_SIZE__CreateFactionRequest)
+    {}
+
+    CreateFactionRequest::CreateFactionRequest(const CreateFactionRequest& other) :
+        Message(other._pData, other._dataSize, MESSAGE_REQUIRED_SIZE__CreateFactionRequest)
+    {}
+
+    CreateFactionRequest::CreateFactionRequest(const std::string factionName) :
+        Message(MESSAGE_TYPE__CreateFactionRequest, MESSAGE_ENTRY_SIZE__header + MESSAGE_REQUIRED_SIZE__CreateFactionRequest)
+    {
+        if (_isValid)
+            addData(factionName.data(), factionName.size());
+    }
+
+    std::string CreateFactionRequest::getName() const
+    {
+        if (_isValid)
+            return std::string(_pData + MESSAGE_ENTRY_SIZE__header, FACTION_NAME_SIZE);
+        return "";
+    }
+
+
+    CreateFactionResponse::CreateFactionResponse(const GC_byte* pData, size_t dataSize) :
+        Message(pData, dataSize, MESSAGE_REQUIRED_SIZE__CreateFactionResponse)
+    {}
+    CreateFactionResponse::CreateFactionResponse(const CreateFactionResponse& other) :
+        Message(other._pData, other._dataSize, MESSAGE_REQUIRED_SIZE__CreateFactionResponse)
+    {}
+    CreateFactionResponse::CreateFactionResponse(bool status, std::string error) :
+        Message(MESSAGE_TYPE__CreateFactionResponse, MESSAGE_ENTRY_SIZE__header + MESSAGE_REQUIRED_SIZE__CreateFactionResponse)
+    {
+        if (_isValid)
+        {
+            addData((GC_byte*)&status, 1);
+            addData(error.data(), MESSAGE_ERR_STR_SIZE);
+        }
+    }
+    bool CreateFactionResponse::getStatus() const
+    {
+        if (_isValid)
+            return (bool)_pData[MESSAGE_ENTRY_SIZE__header];
+        return false;
+    }
+    std::string CreateFactionResponse::getErrorMessage() const
+    {
+
+        if (_isValid)
+        {
+            const size_t errMsgPos = MESSAGE_ENTRY_SIZE__header + 1;
+            return std::string(_pData + errMsgPos, MESSAGE_REQUIRED_SIZE__CreateFactionResponse - errMsgPos);
+        }
+        return "";
+    }
+
+
     // NOTE: Not sure if this works. Yet to be tested!
     FactionsMsg::FactionsMsg(const GC_byte* pData, size_t dataSize) :
         Message(pData, dataSize, MESSAGE_SIZE_CAP__FactionsMsg)

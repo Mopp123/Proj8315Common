@@ -10,7 +10,6 @@ namespace gamecommon
         if (nameSize > USER_NAME_SIZE)
             nameSize = USER_NAME_SIZE;
         memset(_nameData, 0, USER_NAME_SIZE);
-        memset(_passwordData, 0, USER_PASSWD_SIZE);
         if (nameData != nullptr)
             memcpy(_nameData, nameData, nameSize);
         _nameStr = std::string(nameData, nameSize);
@@ -19,7 +18,6 @@ namespace gamecommon
     User::User(const User& other) :
         _id(other._id),
         _nameStr(other._nameStr),
-        _passwordStr(other._passwordStr),
         _isLoggedIn(other._isLoggedIn),
         _xPos(other._xPos),
         _zPos(other._zPos),
@@ -27,9 +25,7 @@ namespace gamecommon
         _factionName(other._factionName)
     {
         memset(_nameData, 0, USER_NAME_SIZE);
-        memset(_passwordData, 0, USER_PASSWD_SIZE);
         memcpy(_nameData, other._nameData, USER_NAME_SIZE);
-        memcpy(_passwordData, other._passwordData, USER_PASSWD_SIZE);
     }
 
     void User::updateObserveProperties(int x, int z, int radius)
