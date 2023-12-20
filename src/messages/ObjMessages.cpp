@@ -12,12 +12,12 @@ namespace gamecommon
             int currentDataPos = MESSAGE_ENTRY_SIZE__header;
             for (size_t i = 0; i < objCount; ++i)
             {
-                PK_byte nameData[OBJECT_DATA_STRLEN_NAME];
+                GC_byte nameData[OBJECT_DATA_STRLEN_NAME];
                 memset(nameData, 0, OBJECT_DATA_STRLEN_NAME);
                 memcpy(nameData, pData + currentDataPos, OBJECT_DATA_STRLEN_NAME);
                 std::string name_str(nameData, OBJECT_DATA_STRLEN_NAME);
 
-                PK_byte descriptionData[OBJECT_DATA_STRLEN_DESCRIPTION];
+                GC_byte descriptionData[OBJECT_DATA_STRLEN_DESCRIPTION];
                 memset(descriptionData, 0, OBJECT_DATA_STRLEN_DESCRIPTION);
                 memcpy(
                     descriptionData,
@@ -32,14 +32,14 @@ namespace gamecommon
                 currentDataPos += OBJECT_DATA_STRLEN_NAME + OBJECT_DATA_STRLEN_DESCRIPTION;
                 for (int j = 0; j < TILE_STATE_MAX_action + 1; ++j)
                 {
-                    PK_byte actionData[OBJECT_DATA_STRLEN_ACTION_NAME];
+                    GC_byte actionData[OBJECT_DATA_STRLEN_ACTION_NAME];
                     memset(actionData, 0, OBJECT_DATA_STRLEN_ACTION_NAME);
                     memcpy(actionData, pData + currentDataPos, OBJECT_DATA_STRLEN_ACTION_NAME);
                     std::string action(actionData, OBJECT_DATA_STRLEN_ACTION_NAME);
                     actions.push_back(action);
                     currentDataPos += OBJECT_DATA_STRLEN_ACTION_NAME;
                 }
-                PK_ubyte speed = 0;
+                GC_ubyte speed = 0;
                 memcpy(&speed, pData + currentDataPos, 1);
                 currentDataPos += 1; // +1 since the one byte stat
                 ObjectInfo objInfo(name_str, description, actions, speed, 0); // NOTE: Client doesn't use begin state -> can be set to 0
