@@ -1,9 +1,10 @@
 #include "ObjMessages.h"
+#include "messages/Message.h"
 
 
 namespace gamecommon
 {
-    ObjInfoLibMsg::ObjInfoLibMsg(const GC_byte* pData, size_t dataSize) :
+    ObjInfoLibResponse::ObjInfoLibResponse(const GC_byte* pData, size_t dataSize) :
         Message(pData, dataSize, dataSize, MESSAGE_SIZE_CAP_ObjInfoLib)
     {
         if (_isValid)
@@ -48,8 +49,8 @@ namespace gamecommon
         }
     }
 
-    ObjInfoLibMsg::ObjInfoLibMsg(const std::vector<ObjectInfo>& objInfoLib) :
-        Message(MESSAGE_TYPE__ObjInfoLib, MESSAGE_ENTRY_SIZE__header + get_netw_objinfo_size() * objInfoLib.size()),
+    ObjInfoLibResponse::ObjInfoLibResponse(const std::vector<ObjectInfo>& objInfoLib) :
+        Message(MESSAGE_TYPE__ObjInfoLibResponse, MESSAGE_ENTRY_SIZE__header + get_netw_objinfo_size() * objInfoLib.size()),
         _objects(objInfoLib)
     {
         const size_t objInfoSize = get_netw_objinfo_size();
@@ -57,7 +58,7 @@ namespace gamecommon
             addData((const GC_byte*)&objInfo, objInfoSize);
     }
 
-    ObjInfoLibMsg::ObjInfoLibMsg(const ObjInfoLibMsg& other) :
+    ObjInfoLibResponse::ObjInfoLibResponse(const ObjInfoLibResponse& other) :
         Message(other._pData, other._dataSize, other._dataSize, MESSAGE_SIZE_CAP_ObjInfoLib),
         _objects(other._objects)
     {}
