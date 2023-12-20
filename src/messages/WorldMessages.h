@@ -9,7 +9,7 @@
 #define MESSAGE_REQUIRED_SIZE__CreateFactionRequest (MESSAGE_ENTRY_SIZE__header + FACTION_NAME_SIZE)
 #define MESSAGE_REQUIRED_SIZE__CreateFactionResponse (MESSAGE_ENTRY_SIZE__header + 1 + MESSAGE_ERR_STR_SIZE)
 // TODO: Figure out how to deal with faction count limit!
-#define MESSAGE_SIZE_CAP__FactionsMsg (MESSAGE_ENTRY_SIZE__header + Faction::get_netw_size() * 1000)
+#define MESSAGE_SIZE_CAP__FactionsMsg (MESSAGE_ENTRY_SIZE__header + Faction::get_netw_size() * 1024)
 
 
 namespace gamecommon

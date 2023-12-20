@@ -115,12 +115,15 @@ namespace gamecommon
         {
             const size_t factionSize = Faction::get_netw_size();
             int count = (dataSize - MESSAGE_ENTRY_SIZE__header) / (int)factionSize;
+            int ptr = MESSAGE_ENTRY_SIZE__header;
             for (int i = 0; i < count; ++i)
             {
                 GC_byte factionName[FACTION_NAME_SIZE];
                 memset(factionName, 0, FACTION_NAME_SIZE);
-                memcpy(factionName, _pData + MESSAGE_ENTRY_SIZE__header + (i * factionSize), factionSize);
-                _factions.push_back(Faction(factionName, FACTION_NAME_SIZE));
+                memcpy(factionName, _pData + ptr, factionSize);
+                uint32_t factionID = (uint32_t)*(_pData + ptr + FACTION_NAME_SIZE);
+                _factions.push_back(Faction(factionName, FACTION_NAME_SIZE, factionID));
+                ptr += factionSize;
             }
         }
     }
@@ -136,7 +139,11 @@ namespace gamecommon
         {
             _factions = factions;
             for (const Faction& faction : _factions)
-                addData(faction.getNetwData(), Faction::get_netw_size());
+            {
+                uint32_t factionID = faction.getID();
+                addData(faction.getNameData(), FACTION_NAME_SIZE);
+                addData((GC_byte*)&factionID, sizeof(uint32_t));
+            }
         }
     }
 }

@@ -8,6 +8,7 @@
 
 // Sizes of different portions (exact size in BITS NOT BYTES!)
 #define TILE_STATE_SIZE			64
+// NOTE: This is deprecated! Not using unique identifier in tile state anymore! TODO: Delete
 #define TILE_STATE_SIZE_uid		32
 #define TILE_STATE_SIZE_properties	32
 
@@ -20,6 +21,7 @@
 #define TILE_STATE_SIZE_action		3
 #define TILE_STATE_SIZE_dir		3
 #define TILE_STATE_SIZE_customVar	4
+#define TILE_STATE_SIZE_factionID       10
 
 
 // Bit positions in the "state"
@@ -34,10 +36,12 @@
 #define TILE_STATE_POS_action		22
 #define TILE_STATE_POS_dir		25
 #define TILE_STATE_POS_customVar	28
+#define TILE_STATE_POS_factionID	32
 
 // Max values of specific properties
 #define TILE_STATE_MAX_terrElevation 15
 #define TILE_STATE_MAX_action 7
+#define TILE_STATE_MAX_factionid (uint32_t)0x3FF
 
 namespace gamecommon
 {
@@ -90,27 +94,29 @@ namespace gamecommon
     };
 
 
-    void set_tile_uid		(uint64_t& tile, uint32_t uid);
+    void set_tile_uid           (uint64_t& tile, uint32_t uid); // NOTE: This is no more used TODO: delete
     void set_tile_terrelevation	(uint64_t& tile, GC_ubyte value);
-    void set_tile_terrtype		(uint64_t& tile, GC_ubyte value);
+    void set_tile_terrtype      (uint64_t& tile, GC_ubyte value);
     void set_tile_terreffect	(uint64_t& tile, GC_ubyte value);
     void set_tile_thingcategory	(uint64_t& tile, GC_ubyte value);
-    void set_tile_thingid		(uint64_t& tile, GC_ubyte value);
-    void set_tile_action		(uint64_t& tile, GC_ubyte value);
-    void set_tile_facingdir		(uint64_t& tile, GC_ubyte value);
-    void set_tile_customvar		(uint64_t& tile, GC_ubyte value);
+    void set_tile_thingid       (uint64_t& tile, GC_ubyte value);
+    void set_tile_action        (uint64_t& tile, GC_ubyte value);
+    void set_tile_facingdir     (uint64_t& tile, GC_ubyte value);
+    void set_tile_customvar     (uint64_t& tile, GC_ubyte value);
+    void set_tile_factionid     (uint64_t& tile, uint32_t id);
     // Some more specific custom stuff
     void transfer_obj_to		(uint64_t& from, uint64_t& to); // Transfers object from one tile to another ()
 
-    uint32_t get_tile_uid		(uint64_t tile);
-    GC_ubyte get_tile_terrelevation	(uint64_t tile);
-    GC_ubyte get_tile_terrtype	(uint64_t tile);
-    GC_ubyte get_tile_terreffect	(uint64_t tile);
-    GC_ubyte get_tile_thingcategory	(uint64_t tile);
-    GC_ubyte get_tile_thingid	(uint64_t tile);
-    GC_ubyte get_tile_action	(uint64_t tile);
-    GC_ubyte get_tile_facingdir	(uint64_t tile);
+    uint32_t get_tile_uid           (uint64_t tile); // NOTE: This is no more used TODO: delete
+    GC_ubyte get_tile_terrelevation (uint64_t tile);
+    GC_ubyte get_tile_terrtype      (uint64_t tile);
+    GC_ubyte get_tile_terreffect    (uint64_t tile);
+    GC_ubyte get_tile_thingcategory (uint64_t tile);
+    GC_ubyte get_tile_thingid   (uint64_t tile);
+    GC_ubyte get_tile_action    (uint64_t tile);
+    GC_ubyte get_tile_facingdir (uint64_t tile);
     GC_ubyte get_tile_customvar	(uint64_t tile);
+    GC_ubyte get_tile_factionid	(uint64_t tile);
 }
 
 
