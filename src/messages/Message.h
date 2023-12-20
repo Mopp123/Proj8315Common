@@ -23,7 +23,7 @@
 #define MESSAGE_TYPE__UserLogin            	0x2
 #define MESSAGE_TYPE__UserLogout            	0x3
 #define MESSAGE_TYPE__UserRegister            	0x4
-#define MESSAGE_TYPE__ObjInfoLibRequest         0x5
+// #define MESSAGE_TYPE__ObjInfoLibRequest         0x5
 #define MESSAGE_TYPE__CreateFaction             0x6
 #define MESSAGE_TYPE__EditFaction               0x7
 #define MESSAGE_TYPE__GetAllFactions            0x9
@@ -37,13 +37,14 @@
 #define MESSAGE_TYPE__LoginResponse            	0x3
 #define MESSAGE_TYPE__UserRegisterRequest       0x4
 #define MESSAGE_TYPE__UserRegisterResponse      0x5
-#define MESSAGE_TYPE__ObjInfoLib                0x6
-#define MESSAGE_TYPE__CreateFactionRequest      0x7
-#define MESSAGE_TYPE__CreateFactionResponse     0x8
+#define MESSAGE_TYPE__ObjInfoLibRequest         0x6
+#define MESSAGE_TYPE__ObjInfoLibResponse        0x7
+#define MESSAGE_TYPE__CreateFactionRequest      0x8
+#define MESSAGE_TYPE__CreateFactionResponse     0x9
 // ...
-#define MESSAGE_TYPE__WorldState                0x9
-#define MESSAGE_TYPE__Factions                  0x10
-#define MESSAGE_TYPE__UpdatedFactions           0x11
+#define MESSAGE_TYPE__WorldState                0x10
+#define MESSAGE_TYPE__Factions                  0x11
+#define MESSAGE_TYPE__UpdatedFactions           0x12
 
 // TODO: Remove this and create server message class defining the whole thing!!!
 #define MESSAGE_SIZE__ServerMessageResponse (MESSAGE_ENTRY_SIZE__header + 256)

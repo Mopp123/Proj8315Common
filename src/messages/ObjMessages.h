@@ -10,16 +10,16 @@
 
 namespace gamecommon
 {
-    class ObjInfoLibMsg : public Message
+    class ObjInfoLibResponse : public Message
     {
     private:
         std::vector<ObjectInfo> _objects;
 
     public:
-        ObjInfoLibMsg(const GC_byte* pData, size_t dataSize);
-        ObjInfoLibMsg(const std::vector<ObjectInfo>& objInfoLib);
-        ObjInfoLibMsg(const ObjInfoLibMsg& other);
-        ~ObjInfoLibMsg() {}
+        ObjInfoLibResponse(const GC_byte* pData, size_t dataSize);
+        ObjInfoLibResponse(const std::vector<ObjectInfo>& objInfoLib);
+        ObjInfoLibResponse(const ObjInfoLibResponse& other);
+        ~ObjInfoLibResponse() {}
 
         inline std::vector<ObjectInfo> getObjects() const { return _objects; }
     };
