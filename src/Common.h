@@ -27,6 +27,8 @@
 #define USER_OBSERVE_WIDTH (15 * 2 + 1)
 #define USER_OBSERVE_AREA (USER_OBSERVE_WIDTH * USER_OBSERVE_WIDTH)
 
+#define UUID_SIZE 32
+
 
 namespace gamecommon
 {
