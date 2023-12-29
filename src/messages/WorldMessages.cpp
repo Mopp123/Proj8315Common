@@ -69,7 +69,8 @@ namespace gamecommon
     std::string CreateFactionRequest::getName() const
     {
         if (_isValid)
-            return std::string(_pData + MESSAGE_ENTRY_SIZE__header, FACTION_NAME_SIZE);
+            return std::string(_pData + MESSAGE_ENTRY_SIZE__header);
+            // return std::string(_pData + MESSAGE_ENTRY_SIZE__header, FACTION_NAME_SIZE);
         return "";
     }
 
@@ -81,9 +82,11 @@ namespace gamecommon
         {
             _status = _pData[MESSAGE_ENTRY_SIZE__header];
             _errorMessage = std::string(_pData + (MESSAGE_ENTRY_SIZE__header + 1), MESSAGE_ERR_STR_SIZE);
-            std::string factionName = std::string(_pData + (MESSAGE_ENTRY_SIZE__header + 1 + MESSAGE_ERR_STR_SIZE), FACTION_NAME_SIZE);
-            uint32_t factionID = (uint32_t)*(_pData + (MESSAGE_ENTRY_SIZE__header + 1 + MESSAGE_ERR_STR_SIZE + FACTION_NAME_SIZE));
-            _faction = Faction(factionName.data(), factionName.size(), factionID);
+
+            std::string factionID = std::string(_pData + (MESSAGE_ENTRY_SIZE__header + 1 + MESSAGE_ERR_STR_SIZE), UUID_SIZE);
+            std::string factionName = std::string(_pData + (MESSAGE_ENTRY_SIZE__header + 1 + MESSAGE_ERR_STR_SIZE + UUID_SIZE), FACTION_NAME_SIZE);
+            // NOTE: Currently not serializin faction id!
+            _faction = Faction(factionID, factionName);
         }
     }
     CreateFactionResponse::CreateFactionResponse(const CreateFactionResponse& other) :
@@ -93,7 +96,7 @@ namespace gamecommon
         _faction(other._faction)
     {}
     CreateFactionResponse::CreateFactionResponse(bool status, std::string error, Faction faction) :
-        Message(MESSAGE_TYPE__CreateFactionResponse, MESSAGE_ENTRY_SIZE__header + MESSAGE_REQUIRED_SIZE__CreateFactionResponse)
+        Message(MESSAGE_TYPE__CreateFactionResponse, MESSAGE_REQUIRED_SIZE__CreateFactionResponse)
     {
         if (_isValid)
         {
@@ -103,9 +106,11 @@ namespace gamecommon
 
             addData((GC_byte*)&status, 1);
             addData(error.data(), MESSAGE_ERR_STR_SIZE);
-            addData(faction.getNameData(), FACTION_NAME_SIZE);
-            uint32_t factionID = faction.getID();
-            addData((GC_byte*)&factionID, sizeof(uint32_t));
+
+            addData((GC_byte*)&faction, Faction::get_netw_size());
+
+            //addData(faction.getID(), UUID_SIZE);
+            //addData(faction.getNameData(), FACTION_NAME_SIZE);
         }
     }
 
@@ -116,17 +121,18 @@ namespace gamecommon
     {
         if (_isValid)
         {
-            const size_t factionSize = Faction::get_netw_size();
-            int count = (dataSize - MESSAGE_ENTRY_SIZE__header) / (int)factionSize;
+            int count = (dataSize - MESSAGE_ENTRY_SIZE__header) / (int)FACTION_NETW_SIZE;
             int ptr = MESSAGE_ENTRY_SIZE__header;
             for (int i = 0; i < count; ++i)
             {
+                GC_byte factionID[UUID_SIZE];
                 GC_byte factionName[FACTION_NAME_SIZE];
+                memset(factionID, 0, UUID_SIZE);
                 memset(factionName, 0, FACTION_NAME_SIZE);
-                memcpy(factionName, _pData + ptr, factionSize);
-                uint32_t factionID = (uint32_t)*(_pData + ptr + FACTION_NAME_SIZE);
-                _factions.push_back(Faction(factionName, FACTION_NAME_SIZE, factionID));
-                ptr += factionSize;
+                memcpy(factionID, _pData + ptr, UUID_SIZE);
+                memcpy(factionName, _pData + ptr + UUID_SIZE, FACTION_NAME_SIZE);
+                _factions.push_back(Faction(factionID, factionName));
+                ptr += FACTION_NETW_SIZE;
             }
         }
     }
@@ -136,17 +142,13 @@ namespace gamecommon
     {}
 
     FactionsMsg::FactionsMsg(const std::vector<Faction>& factions) :
-        Message(MESSAGE_TYPE__Factions, MESSAGE_ENTRY_SIZE__header + factions.size() * Faction::get_netw_size())
+        Message(MESSAGE_TYPE__Factions, MESSAGE_ENTRY_SIZE__header + factions.size() * FACTION_NETW_SIZE)
     {
         if(_isValid)
         {
             _factions = factions;
             for (const Faction& faction : _factions)
-            {
-                uint32_t factionID = faction.getID();
-                addData(faction.getNameData(), FACTION_NAME_SIZE);
-                addData((GC_byte*)&factionID, sizeof(uint32_t));
-            }
+                addData((GC_byte*)&faction, FACTION_NETW_SIZE);
         }
     }
 }

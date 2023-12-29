@@ -2,6 +2,7 @@
 
 #include "Common.h"
 #include "Message.h"
+#include "Faction.h"
 #include <vector>
 
 #define MESSAGE_REQUIRED_SIZE__WorldStateMsg (MESSAGE_ENTRY_SIZE__header + (USER_OBSERVE_AREA * sizeof(uint64_t)))

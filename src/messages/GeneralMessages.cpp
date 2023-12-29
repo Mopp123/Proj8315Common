@@ -58,7 +58,9 @@ namespace gamecommon
         {
             GC_byte successByte = (GC_byte)success;
             addData(&successByte, 1);
-            addData((GC_byte*)&faction, Faction::get_netw_size());
+            // NOTE: Only temporarely only providing faction name
+            // -> fully serialized faction in the future
+            addData(faction.getNameData(), FACTION_NAME_SIZE);
 
             // Make sure error message data doesn't contain any funny bytes
             // (if message smaller than max size -> make sure all bytes = 0)
