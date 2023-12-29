@@ -69,7 +69,8 @@ namespace gamecommon
     std::string CreateFactionRequest::getName() const
     {
         if (_isValid)
-            return std::string(_pData + MESSAGE_ENTRY_SIZE__header, FACTION_NAME_SIZE);
+            return std::string(_pData + MESSAGE_ENTRY_SIZE__header);
+            // return std::string(_pData + MESSAGE_ENTRY_SIZE__header, FACTION_NAME_SIZE);
         return "";
     }
 
@@ -82,8 +83,8 @@ namespace gamecommon
             _status = _pData[MESSAGE_ENTRY_SIZE__header];
             _errorMessage = std::string(_pData + (MESSAGE_ENTRY_SIZE__header + 1), MESSAGE_ERR_STR_SIZE);
             std::string factionName = std::string(_pData + (MESSAGE_ENTRY_SIZE__header + 1 + MESSAGE_ERR_STR_SIZE), FACTION_NAME_SIZE);
-            uint32_t factionID = (uint32_t)*(_pData + (MESSAGE_ENTRY_SIZE__header + 1 + MESSAGE_ERR_STR_SIZE + FACTION_NAME_SIZE));
-            _faction = Faction(factionName.data(), factionName.size(), factionID);
+            // NOTE: Currently not serializin faction id!
+            _faction = Faction("", factionName.data(), factionName.size());
         }
     }
     CreateFactionResponse::CreateFactionResponse(const CreateFactionResponse& other) :
@@ -104,8 +105,7 @@ namespace gamecommon
             addData((GC_byte*)&status, 1);
             addData(error.data(), MESSAGE_ERR_STR_SIZE);
             addData(faction.getNameData(), FACTION_NAME_SIZE);
-            uint32_t factionID = faction.getID();
-            addData((GC_byte*)&factionID, sizeof(uint32_t));
+            // NOTE: Currently not serializin faction id!
         }
     }
 
@@ -124,8 +124,8 @@ namespace gamecommon
                 GC_byte factionName[FACTION_NAME_SIZE];
                 memset(factionName, 0, FACTION_NAME_SIZE);
                 memcpy(factionName, _pData + ptr, factionSize);
-                uint32_t factionID = (uint32_t)*(_pData + ptr + FACTION_NAME_SIZE);
-                _factions.push_back(Faction(factionName, FACTION_NAME_SIZE, factionID));
+                // NOTE: Currently not serializin faction id!
+                _factions.push_back(Faction("", factionName, FACTION_NAME_SIZE));
                 ptr += factionSize;
             }
         }
@@ -143,9 +143,8 @@ namespace gamecommon
             _factions = factions;
             for (const Faction& faction : _factions)
             {
-                uint32_t factionID = faction.getID();
                 addData(faction.getNameData(), FACTION_NAME_SIZE);
-                addData((GC_byte*)&factionID, sizeof(uint32_t));
+                // NOTE: Currently not serializin faction id!
             }
         }
     }
