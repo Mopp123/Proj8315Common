@@ -104,9 +104,12 @@ namespace gamecommon
             _faction = faction;
 
             addData((GC_byte*)&status, 1);
-            addData(error.data(), MESSAGE_ERR_STR_SIZE);
+            GC_byte errData[MESSAGE_ERR_STR_SIZE];
+            memset(errData, 0, MESSAGE_ERR_STR_SIZE);
+            memcpy(errData, error.data(), error.size());
+            addData(errData, MESSAGE_ERR_STR_SIZE);
 
-            addData((GC_byte*)&faction, Faction::get_netw_size());
+            addData((GC_byte*)&faction, FACTION_NETW_SIZE);
 
             //addData(faction.getID(), UUID_SIZE);
             //addData(faction.getNameData(), FACTION_NAME_SIZE);
