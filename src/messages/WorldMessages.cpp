@@ -104,15 +104,11 @@ namespace gamecommon
             _faction = faction;
 
             addData((GC_byte*)&status, 1);
-            GC_byte errData[MESSAGE_ERR_STR_SIZE];
-            memset(errData, 0, MESSAGE_ERR_STR_SIZE);
-            memcpy(errData, error.data(), error.size());
-            addData(errData, MESSAGE_ERR_STR_SIZE);
+            addStr(error, MESSAGE_ERR_STR_SIZE);
 
+            // NOTE: Works only bacause of alignment of Faction class and FACTION_NETW_SIZE
+            // TODO: Make more proper!!
             addData((GC_byte*)&faction, FACTION_NETW_SIZE);
-
-            //addData(faction.getID(), UUID_SIZE);
-            //addData(faction.getNameData(), FACTION_NAME_SIZE);
         }
     }
 

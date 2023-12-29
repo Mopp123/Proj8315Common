@@ -128,6 +128,36 @@ namespace gamecommon
         _writePos += dataSize;
     }
 
+    void Message::addStr(const std::string& str, size_t allocSize)
+    {
+        if (str.size() > allocSize)
+        {
+            MsgDebug::log(
+                "Attempted to add string to Message but inputted string size was greater than inputted alloc size."
+                " String size: " + std::to_string(str.size()) +
+                " alloc size: " + std::to_string(allocSize),
+                MsgDebug::MessageType::WARNING
+            );
+            return;
+        }
+        else if (_writePos + allocSize > _dataSize)
+        {
+            MsgDebug::log(
+                "Attempted to add data(str) to Message but inputted data size went out of bounds of allocated space."
+                " Current byte position: " + std::to_string(_writePos) +
+                " Size to add: " + std::to_string(allocSize) +
+                " Allocated size: " + std::to_string(_dataSize),
+                MsgDebug::MessageType::WARNING
+            );
+            return;
+        }
+        GC_byte buf[allocSize];
+        memset(buf, 0, allocSize);
+        memcpy(buf, str.data(), str.size());
+        memcpy(_pData + _writePos, buf, allocSize);
+        _writePos += allocSize;
+    }
+
 
     void MsgDebug::log(std::string message, MessageType t)
     {
