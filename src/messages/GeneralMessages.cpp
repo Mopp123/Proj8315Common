@@ -44,14 +44,13 @@ namespace gamecommon
     {
         if (_isValid)
         {
-            const size_t factionSize = Faction::get_netw_size();
             memcpy(&_success, _pData + MESSAGE_ENTRY_SIZE__header, 1);
 
-            std::string factionID = std::string(_pData + (MESSAGE_ENTRY_SIZE__header + 1 + MESSAGE_ERR_STR_SIZE), UUID_SIZE);
-            std::string factionName = std::string(_pData + (MESSAGE_ENTRY_SIZE__header + 1 + MESSAGE_ERR_STR_SIZE + UUID_SIZE), FACTION_NAME_SIZE);
+            std::string factionID = std::string(_pData + (MESSAGE_ENTRY_SIZE__header + 1), UUID_SIZE);
+            std::string factionName = std::string(_pData + (MESSAGE_ENTRY_SIZE__header + 1 + UUID_SIZE), FACTION_NAME_SIZE);
             _faction = Faction(factionID, factionName);
 
-            _error = std::string(_pData + MESSAGE_ENTRY_SIZE__header + 1 + factionSize, MESSAGE_ERR_STR_SIZE);
+            _error = std::string(_pData + (MESSAGE_ENTRY_SIZE__header + 1 + UUID_SIZE + FACTION_NAME_SIZE), MESSAGE_ERR_STR_SIZE);
             //memcpy(&_error, _pData + MESSAGE_ENTRY_SIZE__header + 1 + factionSize, MESSAGE_ERR_STR_SIZE);
         }
     }
@@ -73,6 +72,7 @@ namespace gamecommon
             addData((GC_byte*)&faction, FACTION_NETW_SIZE);
 
             addStr(_error, MESSAGE_ERR_STR_SIZE);
+            MsgDebug::log("___TEST___ADDED ERR TO LoginResponse: " + _error);
         }
     }
 
