@@ -136,7 +136,7 @@ namespace gamecommon
                 "Attempted to add string to Message but inputted string size was greater than inputted alloc size."
                 " String size: " + std::to_string(str.size()) +
                 " alloc size: " + std::to_string(allocSize),
-                MsgDebug::MessageType::WARNING
+                MsgDebug::MessageType::ERROR
             );
             return;
         }
@@ -147,7 +147,7 @@ namespace gamecommon
                 " Current byte position: " + std::to_string(_writePos) +
                 " Size to add: " + std::to_string(allocSize) +
                 " Allocated size: " + std::to_string(_dataSize),
-                MsgDebug::MessageType::WARNING
+                MsgDebug::MessageType::ERROR
             );
             return;
         }

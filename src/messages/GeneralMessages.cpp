@@ -61,18 +61,11 @@ namespace gamecommon
             // NOTE: Only temporarely only providing faction name
             // -> fully serialized faction in the future
             addData(faction.getNameData(), FACTION_NAME_SIZE);
-
-            // Make sure error message data doesn't contain any funny bytes
-            // (if message smaller than max size -> make sure all bytes = 0)
-            memset(_error, 0, MESSAGE_ERR_STR_SIZE);
-            size_t errDataSize = error.size();
-            if (errDataSize > MESSAGE_ERR_STR_SIZE)
-                errDataSize = MESSAGE_ERR_STR_SIZE;
-            memcpy(_error, error.data(), errDataSize);
-            addData(_error, MESSAGE_ERR_STR_SIZE);
+            addStr(_error, MESSAGE_ERR_STR_SIZE);
 
             _success = success;
             _faction = faction;
+            _error = error;
         }
     }
 
@@ -83,7 +76,7 @@ namespace gamecommon
         {
             _success = other._success;
             _faction = other._faction;
-            memcpy(_error, other._error, MESSAGE_ERR_STR_SIZE);
+            _error = other._error;
         }
     }
 

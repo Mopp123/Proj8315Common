@@ -33,7 +33,7 @@ namespace gamecommon
     private:
         bool _success = false;
         Faction _faction = NULL_FACTION;
-        GC_byte _error[MESSAGE_ERR_STR_SIZE];
+        std::string _error;
 
     public:
         LoginResponse(const GC_byte* pData, size_t dataSize);
@@ -42,7 +42,7 @@ namespace gamecommon
         ~LoginResponse() {}
         inline bool getSuccess() const { return _success; }
         inline const Faction& getFaction() const { return _faction; }
-        inline std::string getError() const { return std::string(_error, MESSAGE_ERR_STR_SIZE); }
+        inline const std::string& getError() const { return _error; }
     };
 
 
