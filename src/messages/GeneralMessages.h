@@ -3,7 +3,7 @@
 #include "Message.h"
 
 #define MESSAGE_REQUIRED_SIZE__LoginRequest (MESSAGE_ENTRY_SIZE__header + USER_NAME_SIZE + USER_PASSWD_SIZE)
-#define MESSAGE_REQUIRED_SIZE__LoginResponse (MESSAGE_ENTRY_SIZE__header + 1 + Faction::get_netw_size() + MESSAGE_ERR_STR_SIZE)
+#define MESSAGE_REQUIRED_SIZE__LoginResponse (MESSAGE_ENTRY_SIZE__header + 1 + FACTION_NETW_SIZE + MESSAGE_ERR_STR_SIZE)
 #define MESSAGE_REQUIRED_SIZE__UserRegisterRequest (MESSAGE_ENTRY_SIZE__header + USER_NAME_SIZE + USER_PASSWD_SIZE * 2)
 #define MESSAGE_REQUIRED_SIZE__UserRegisterResponse (MESSAGE_ENTRY_SIZE__header + 1 + MESSAGE_ERR_STR_SIZE)
 
