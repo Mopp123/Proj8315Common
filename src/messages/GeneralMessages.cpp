@@ -47,7 +47,9 @@ namespace gamecommon
             const size_t factionSize = Faction::get_netw_size();
             memcpy(&_success, _pData + MESSAGE_ENTRY_SIZE__header, 1);
             memcpy((GC_byte*)&_faction, _pData + MESSAGE_ENTRY_SIZE__header + 1, factionSize);
-            memcpy(&_error, _pData + MESSAGE_ENTRY_SIZE__header + 1 + factionSize, MESSAGE_ERR_STR_SIZE);
+
+            _error = std::string(_pData + MESSAGE_ENTRY_SIZE__header + 1 + factionSize, MESSAGE_ERR_STR_SIZE);
+            //memcpy(&_error, _pData + MESSAGE_ENTRY_SIZE__header + 1 + factionSize, MESSAGE_ERR_STR_SIZE);
         }
     }
 
