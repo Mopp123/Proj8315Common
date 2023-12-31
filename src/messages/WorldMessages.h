@@ -2,12 +2,13 @@
 
 #include "Common.h"
 #include "Message.h"
+#include "Faction.h"
 #include <vector>
 
 #define MESSAGE_REQUIRED_SIZE__WorldStateMsg (MESSAGE_ENTRY_SIZE__header + (USER_OBSERVE_AREA * sizeof(uint64_t)))
 #define MESSAGE_REQUIRED_SIZE__UpdateObserverMsg (MESSAGE_ENTRY_SIZE__header + sizeof(int32_t) * 3)
 #define MESSAGE_REQUIRED_SIZE__CreateFactionRequest (MESSAGE_ENTRY_SIZE__header + FACTION_NAME_SIZE)
-#define MESSAGE_REQUIRED_SIZE__CreateFactionResponse (MESSAGE_ENTRY_SIZE__header + 1 + MESSAGE_ERR_STR_SIZE)
+#define MESSAGE_REQUIRED_SIZE__CreateFactionResponse (MESSAGE_ENTRY_SIZE__header + 1 + MESSAGE_ERR_STR_SIZE + FACTION_NETW_SIZE)
 // TODO: Figure out how to deal with faction count limit!
 #define MESSAGE_SIZE_CAP__FactionsMsg (MESSAGE_ENTRY_SIZE__header + Faction::get_netw_size() * 1024)
 
@@ -52,13 +53,19 @@ namespace gamecommon
 
     class CreateFactionResponse : public Message
     {
+    private:
+        bool _status = false;
+        std::string _errorMessage = "";
+        Faction _faction;
+
     public:
         CreateFactionResponse(const GC_byte* pData, size_t dataSize);
         CreateFactionResponse(const CreateFactionResponse& other);
-        CreateFactionResponse(bool status, std::string error);
+        CreateFactionResponse(bool status, std::string error, Faction faction);
         ~CreateFactionResponse() {}
-        bool getStatus() const;
-        std::string getErrorMessage() const;
+        inline bool getStatus() const { return _status; }
+        inline const std::string& getErrorMessage() const { return _errorMessage; }
+        inline const Faction& getFaction() const { return _faction; }
     };
 
     class FactionsMsg : public Message
