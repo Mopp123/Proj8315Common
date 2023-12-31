@@ -58,16 +58,16 @@ namespace gamecommon
     {
         if (_isValid)
         {
+            _success = success;
+            _faction = faction;
+            _error = error;
+
             GC_byte successByte = (GC_byte)success;
             addData(&successByte, 1);
             // NOTE: Only temporarely only providing faction name
             // -> fully serialized faction in the future
             addData(faction.getNameData(), FACTION_NAME_SIZE);
             addStr(_error, MESSAGE_ERR_STR_SIZE);
-
-            _success = success;
-            _faction = faction;
-            _error = error;
         }
     }
 
