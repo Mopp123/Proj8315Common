@@ -10,28 +10,19 @@
 
 namespace gamecommon
 {
-    Message::Message(const GC_byte* pData, size_t dataSize, size_t requiredSize, size_t dynamicSizeCap)
+    Message::Message(const GC_byte* pData, size_t dataSize, size_t requiredSize, bool dynamicSize)
     {
         if (pData != nullptr)
         {
-            if (!dynamicSizeCap)
-                _isValid = validateSize(
-                    "Base Message",
-                    dataSize,
-                    requiredSize,
-                    MESSAGE_VALIDATION_COMPARISON_EQ
-                );
-            else
-                _isValid = validateSize(
-                    "Base Message",
-                    dataSize,
-                    requiredSize,
-                    MESSAGE_VALIDATION_COMPARISON_LTEQ
-                );
+            _isValid = validateSize(
+                "Base Message",
+                dataSize,
+                requiredSize,
+                dynamicSize ? MESSAGE_VALIDATION_COMPARISON_LTEQ : MESSAGE_VALIDATION_COMPARISON_EQ
+            );
             if (_isValid)
             {
                 _dataSize = dataSize;
-                _dynamicSizeCap = dynamicSizeCap;
                 _pData = new GC_byte[_dataSize];
                 memcpy(_pData, pData, _dataSize);
                 memcpy(&_type, pData, sizeof(int32_t));
@@ -39,20 +30,31 @@ namespace gamecommon
         }
     }
 
-    Message::Message(int32_t type, size_t allocSize) :
+    Message::Message(int32_t type, size_t allocSize, size_t dynamicSizeCap) :
         _type(type)
     {
-        _dataSize = allocSize;
-        _pData = new GC_byte[_dataSize];
-        memset(_pData, 0, _dataSize);
-        addData((const GC_byte*)&_type, sizeof(int32_t));
-        _isValid = true;
+        if (dynamicSizeCap > 0)
+            _isValid = validateSize(
+                "Base Message",
+                allocSize,
+                dynamicSizeCap,
+                MESSAGE_VALIDATION_COMPARISON_LTEQ
+            );
+        else
+            _isValid = true;
+
+        if (_isValid)
+        {
+            _dataSize = allocSize;
+            _pData = new GC_byte[_dataSize];
+            memset(_pData, 0, _dataSize);
+            addData((const GC_byte*)&_type, sizeof(int32_t));
+        }
     }
 
     Message::Message(const Message& other) :
         _type(other._type),
         _dataSize(other._dataSize),
-        _dynamicSizeCap(other._dynamicSizeCap),
         _isValid(other._isValid)
     {
         _pData = new GC_byte[_dataSize];

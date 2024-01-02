@@ -47,6 +47,8 @@
 #define MESSAGE_TYPE__Factions                  0x11
 #define MESSAGE_TYPE__UpdatedFactions           0x12
 #define MESSAGE_TYPE__UpdateObserverProperties  0x13
+#define MESSAGE_TYPE__FactionListRequest        0x14
+#define MESSAGE_TYPE__FactionListResponse       0x15
 
 // TODO: Remove this and create server message class defining the whole thing!!!
 #define MESSAGE_SIZE__ServerMessageResponse (MESSAGE_ENTRY_SIZE__header + 256)
@@ -72,7 +74,6 @@ namespace gamecommon
         int32_t _type = 0;
         GC_byte* _pData = nullptr;
         size_t _dataSize = 0;
-        size_t _dynamicSizeCap = 0;
 
         size_t _writePos = 0;
 
@@ -80,9 +81,9 @@ namespace gamecommon
 
     public:
         Message() {}
-        Message(const GC_byte* pData, size_t dataSize, size_t requiredSize, size_t dynamicSizeCap = 0);
+        Message(const GC_byte* pData, size_t dataSize, size_t requiredSize, bool dynamicSize = false);
         // Creates empty message of size: "allocSize"
-        Message(int32_t type, size_t allocSize);
+        Message(int32_t type, size_t allocSize, size_t dynamicSizeCap = 0);
         Message(const Message& other);
         virtual ~Message();
         inline int32_t getType() const { return _type; }

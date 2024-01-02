@@ -10,7 +10,7 @@
 #define MESSAGE_REQUIRED_SIZE__CreateFactionRequest (MESSAGE_ENTRY_SIZE__header + FACTION_NAME_SIZE)
 #define MESSAGE_REQUIRED_SIZE__CreateFactionResponse (MESSAGE_ENTRY_SIZE__header + 1 + MESSAGE_ERR_STR_SIZE + FACTION_NETW_SIZE)
 // TODO: Figure out how to deal with faction count limit!
-#define MESSAGE_SIZE_CAP__FactionsMsg (MESSAGE_ENTRY_SIZE__header + Faction::get_netw_size() * 1024)
+#define MESSAGE_SIZE_CAP__FactionListResponse (MESSAGE_ENTRY_SIZE__header + FACTION_NETW_SIZE * MAX_FACTION_COUNT)
 
 
 namespace gamecommon
@@ -68,16 +68,16 @@ namespace gamecommon
         inline const Faction& getFaction() const { return _faction; }
     };
 
-    class FactionsMsg : public Message
+    class FactionListResponse : public Message
     {
     private:
         std::vector<Faction> _factions;
 
     public:
-        FactionsMsg(const GC_byte* pData, size_t dataSize);
-        FactionsMsg(const FactionsMsg& other);
-        FactionsMsg(const std::vector<Faction>& factions);
-        ~FactionsMsg() {}
+        FactionListResponse(const GC_byte* pData, size_t dataSize);
+        FactionListResponse(const FactionListResponse& other);
+        FactionListResponse(const std::vector<Faction>& factions);
+        ~FactionListResponse() {}
         inline const std::vector<Faction>& getFactions() const { return _factions; }
     };
 }

@@ -114,12 +114,13 @@ namespace gamecommon
 
 
     // NOTE: Not sure if this works. Yet to be tested!
-    FactionsMsg::FactionsMsg(const GC_byte* pData, size_t dataSize) :
-        Message(pData, dataSize, MESSAGE_SIZE_CAP__FactionsMsg)
+    FactionListResponse::FactionListResponse(const GC_byte* pData, size_t dataSize) :
+        Message(pData, dataSize, MESSAGE_SIZE_CAP__FactionListResponse, true)
     {
         if (_isValid)
         {
             int count = (dataSize - MESSAGE_ENTRY_SIZE__header) / (int)FACTION_NETW_SIZE;
+            _factions.reserve(count);
             int ptr = MESSAGE_ENTRY_SIZE__header;
             for (int i = 0; i < count; ++i)
             {
@@ -129,18 +130,23 @@ namespace gamecommon
                 memset(factionName, 0, FACTION_NAME_SIZE);
                 memcpy(factionID, _pData + ptr, UUID_SIZE);
                 memcpy(factionName, _pData + ptr + UUID_SIZE, FACTION_NAME_SIZE);
-                _factions.push_back(Faction(factionID, factionName));
+                _factions.emplace_back(Faction(factionID, factionName));
                 ptr += FACTION_NETW_SIZE;
             }
         }
     }
 
-    FactionsMsg::FactionsMsg(const FactionsMsg& other):
-        Message(other._pData, other._dataSize, MESSAGE_SIZE_CAP__FactionsMsg)
+    FactionListResponse::FactionListResponse(const FactionListResponse& other):
+        Message(other._pData, MESSAGE_SIZE_CAP__FactionListResponse, true),
+        _factions(other._factions)
     {}
 
-    FactionsMsg::FactionsMsg(const std::vector<Faction>& factions) :
-        Message(MESSAGE_TYPE__Factions, MESSAGE_ENTRY_SIZE__header + factions.size() * FACTION_NETW_SIZE)
+    FactionListResponse::FactionListResponse(const std::vector<Faction>& factions) :
+        Message(
+            MESSAGE_TYPE__Factions,
+            MESSAGE_ENTRY_SIZE__header + factions.size() * FACTION_NETW_SIZE,
+            MESSAGE_SIZE_CAP__FactionListResponse
+        )
     {
         if(_isValid)
         {
