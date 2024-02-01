@@ -29,6 +29,8 @@
 
 #define UUID_SIZE 32
 
+#define MAX_FACTION_COUNT 1024
+
 
 namespace gamecommon
 {
