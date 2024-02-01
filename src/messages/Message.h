@@ -44,11 +44,10 @@
 #define MESSAGE_TYPE__CreateFactionResponse     0x9
 // ...
 #define MESSAGE_TYPE__WorldState                0x10
-#define MESSAGE_TYPE__Factions                  0x11
-#define MESSAGE_TYPE__UpdatedFactions           0x12
-#define MESSAGE_TYPE__UpdateObserverProperties  0x13
-#define MESSAGE_TYPE__FactionListRequest        0x14
-#define MESSAGE_TYPE__FactionListResponse       0x15
+#define MESSAGE_TYPE__UpdateObserverProperties  0x11
+#define MESSAGE_TYPE__FactionListRequest        0x12
+#define MESSAGE_TYPE__FactionListResponse       0x13
+#define MESSAGE_TYPE__UpdatedFactions           0x14
 
 // TODO: Remove this and create server message class defining the whole thing!!!
 #define MESSAGE_SIZE__ServerMessageResponse (MESSAGE_ENTRY_SIZE__header + 256)

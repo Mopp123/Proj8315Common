@@ -143,9 +143,54 @@ namespace gamecommon
 
     FactionListResponse::FactionListResponse(const std::vector<Faction>& factions) :
         Message(
-            MESSAGE_TYPE__Factions,
+            MESSAGE_TYPE__FactionListResponse,
             MESSAGE_ENTRY_SIZE__header + factions.size() * FACTION_NETW_SIZE,
             MESSAGE_SIZE_CAP__FactionListResponse
+        )
+    {
+        if(_isValid)
+        {
+            _factions = factions;
+            for (const Faction& faction : _factions)
+                addData((GC_byte*)&faction, FACTION_NETW_SIZE);
+        }
+    }
+
+
+    // NOTE: Currently this is implemented exactly the same as FactionListResponse
+    // but this may change in the future -> thats why this code duplication
+    UpdatedFactionsMsg::UpdatedFactionsMsg(const GC_byte* pData, size_t dataSize) :
+        Message(pData, dataSize, MESSAGE_SIZE_CAP__UpdatedFactionsMsg, true)
+    {
+        if (_isValid)
+        {
+            int count = (dataSize - MESSAGE_ENTRY_SIZE__header) / (int)FACTION_NETW_SIZE;
+            _factions.reserve(count);
+            int ptr = MESSAGE_ENTRY_SIZE__header;
+            for (int i = 0; i < count; ++i)
+            {
+                GC_byte factionID[UUID_SIZE];
+                GC_byte factionName[FACTION_NAME_SIZE];
+                memset(factionID, 0, UUID_SIZE);
+                memset(factionName, 0, FACTION_NAME_SIZE);
+                memcpy(factionID, _pData + ptr, UUID_SIZE);
+                memcpy(factionName, _pData + ptr + UUID_SIZE, FACTION_NAME_SIZE);
+                _factions.emplace_back(Faction(factionID, factionName));
+                ptr += FACTION_NETW_SIZE;
+            }
+        }
+    }
+
+    UpdatedFactionsMsg::UpdatedFactionsMsg(const UpdatedFactionsMsg& other):
+        Message(other._pData, MESSAGE_SIZE_CAP__UpdatedFactionsMsg, true),
+        _factions(other._factions)
+    {}
+
+    UpdatedFactionsMsg::UpdatedFactionsMsg(const std::vector<Faction>& factions) :
+        Message(
+            MESSAGE_TYPE__UpdatedFactions,
+            MESSAGE_ENTRY_SIZE__header + factions.size() * FACTION_NETW_SIZE,
+            MESSAGE_SIZE_CAP__UpdatedFactionsMsg
         )
     {
         if(_isValid)
