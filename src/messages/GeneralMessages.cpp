@@ -65,7 +65,6 @@ namespace gamecommon
 
             GC_byte successByte = (GC_byte)success;
             addData(&successByte, 1);
-
             // NOTE: Works only bacause of alignment of Faction class and FACTION_NETW_SIZE
             // TODO: Make more proper!!
             addData((GC_byte*)&faction, FACTION_NETW_SIZE);
