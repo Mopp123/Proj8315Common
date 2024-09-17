@@ -110,17 +110,18 @@ namespace gamecommon
         }
 
     protected:
+        void addData(const GC_byte* pData, size_t dataSize);
+        // NOTE: Ment to prevent calling memcpy using dataSize greater than source's actual size
+        // -> causing undefined behaviour/bytes..
+        void addStr(const std::string& str, size_t allocSize);
+
+    private:
         bool validateSize(
             std::string msgClassName,
             size_t left,
             size_t right,
             GC_byte comparison
         ) const;
-
-        void addData(const GC_byte* pData, size_t dataSize);
-        // NOTE: Ment to prevent calling memcpy using dataSize greater than source's actual size
-        // -> causing undefined behaviour/bytes..
-        void addStr(const std::string& str, size_t allocSize);
     };
 
 

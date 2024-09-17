@@ -27,6 +27,32 @@ namespace gamecommon
                 memcpy(_pData, pData, _dataSize);
                 memcpy(&_type, pData, sizeof(int32_t));
             }
+            #ifdef DEBUG_INVALID_MESSAGE_DATA
+            else
+            {
+                // Try getting possibly message type from pData
+                // NOTE: If fucked up msg, this is incorrect type -> interpret it with a grain of salt
+                int32_t parsedType = -1;
+                if (dataSize > sizeof(int32_t))
+                    memcpy(&parsedType, pData, sizeof(int32_t));
+
+                std::string rawStr(pData, dataSize);
+                std::string bytesStr = "";
+                for (int i = 0; i < dataSize; ++i)
+                {
+                    int val = (int)pData[i];
+                    bytesStr += std::to_string(val);
+                    if (i < dataSize - 1)
+                        bytesStr += ",";
+                }
+                MsgDebug::log(
+                    "Invalid message parsed type: " + std::to_string(parsedType) +
+                    " raw str: " + rawStr +
+                    " bytes: " + bytesStr,
+                    MsgDebug::MessageType::ERROR
+                );
+            }
+            #endif
         }
     }
 

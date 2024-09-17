@@ -3,6 +3,8 @@
 #include <cstring>
 #include <string>
 
+#define DEBUG_INVALID_MESSAGE_DATA
+
 #define GC_byte char
 #define GC_ubyte unsigned char
 
