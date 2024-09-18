@@ -38,7 +38,7 @@ namespace gamecommon
 
                 std::string rawStr(pData, dataSize);
                 std::string bytesStr = "";
-                for (int i = 0; i < dataSize; ++i)
+                for (size_t i = 0; i < dataSize; ++i)
                 {
                     int val = (int)pData[i];
                     bytesStr += std::to_string(val);
