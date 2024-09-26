@@ -36,18 +36,20 @@
 // NEW MESSAGE TYPES
 #define MESSAGE_TYPE__LoginRequest            	0x2
 #define MESSAGE_TYPE__LoginResponse            	0x3
-#define MESSAGE_TYPE__UserRegisterRequest       0x4
-#define MESSAGE_TYPE__UserRegisterResponse      0x5
-#define MESSAGE_TYPE__ObjInfoLibRequest         0x6
-#define MESSAGE_TYPE__ObjInfoLibResponse        0x7
-#define MESSAGE_TYPE__CreateFactionRequest      0x8
-#define MESSAGE_TYPE__CreateFactionResponse     0x9
+#define MESSAGE_TYPE__LogoutRequest            	0x4
+#define MESSAGE_TYPE__LogoutResponse            0x5
+#define MESSAGE_TYPE__UserRegisterRequest       0x6
+#define MESSAGE_TYPE__UserRegisterResponse      0x7
+#define MESSAGE_TYPE__ObjInfoLibRequest         0x8
+#define MESSAGE_TYPE__ObjInfoLibResponse        0x9
+#define MESSAGE_TYPE__CreateFactionRequest      0x10
+#define MESSAGE_TYPE__CreateFactionResponse     0x11
 // ...
-#define MESSAGE_TYPE__WorldState                0x10
-#define MESSAGE_TYPE__UpdateObserverProperties  0x11
-#define MESSAGE_TYPE__FactionListRequest        0x12
-#define MESSAGE_TYPE__FactionListResponse       0x13
-#define MESSAGE_TYPE__UpdatedFactions           0x14
+#define MESSAGE_TYPE__WorldState                0x12
+#define MESSAGE_TYPE__UpdateObserverProperties  0x13
+#define MESSAGE_TYPE__FactionListRequest        0x14
+#define MESSAGE_TYPE__FactionListResponse       0x15
+#define MESSAGE_TYPE__UpdatedFactions           0x16
 
 // TODO: Remove this and create server message class defining the whole thing!!!
 #define MESSAGE_SIZE__ServerMessageResponse (MESSAGE_ENTRY_SIZE__header + 256)
