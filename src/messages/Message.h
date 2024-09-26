@@ -21,16 +21,16 @@
 // OLD MESSAGE TYPES! To be changed...
 // TODO: Delete all old messages -> conflicts with new ones
 #define MESSAGE_TYPE__ServerMessage             0x1
-#define MESSAGE_TYPE__UserLogin            	0x2
-#define MESSAGE_TYPE__UserLogout            	0x3
-#define MESSAGE_TYPE__UserRegister            	0x4
+//#define MESSAGE_TYPE__UserLogin            	0x2
+//#define MESSAGE_TYPE__UserLogout            	0x3
+//#define MESSAGE_TYPE__UserRegister            	0x4
 // #define MESSAGE_TYPE__ObjInfoLibRequest         0x5
-#define MESSAGE_TYPE__CreateFaction             0x6
-#define MESSAGE_TYPE__EditFaction               0x7
+//#define MESSAGE_TYPE__CreateFaction             0x6
+//#define MESSAGE_TYPE__EditFaction               0x7
 // #define MESSAGE_TYPE__GetAllFactions            0x9
 // #define MESSAGE_TYPE__GetChangedFactions        0x10
 // #define MESSAGE_TYPE__UpdateObserverProperties 	0x11
-#define MESSAGE_TYPE__Deploy 	                0x12
+//#define MESSAGE_TYPE__Deploy 	                0x12
 //#define MESSAGE_TYPE__ServerShutdown            0x11
 
 // NEW MESSAGE TYPES
