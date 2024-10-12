@@ -5,7 +5,7 @@
 #include "Faction.h"
 #include <vector>
 
-#define MESSAGE_REQUIRED_SIZE__WorldStateMsg (MESSAGE_ENTRY_SIZE__header + (USER_OBSERVE_AREA * sizeof(uint64_t)))
+#define MESSAGE_REQUIRED_SIZE__WorldStateMsg (MESSAGE_ENTRY_SIZE__header + (sizeof(int32_t) * 2) + (USER_OBSERVE_AREA * sizeof(uint64_t)))
 #define MESSAGE_REQUIRED_SIZE__UpdateObserverMsg (MESSAGE_ENTRY_SIZE__header + sizeof(int32_t) * 3)
 #define MESSAGE_REQUIRED_SIZE__CreateFactionRequest (MESSAGE_ENTRY_SIZE__header + FACTION_NAME_SIZE)
 #define MESSAGE_REQUIRED_SIZE__CreateFactionResponse (MESSAGE_ENTRY_SIZE__header + 1 + MESSAGE_ERR_STR_SIZE + FACTION_NETW_SIZE)
