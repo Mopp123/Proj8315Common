@@ -6,11 +6,6 @@
 
 namespace gamecommon
 {
-    void set_tile_uid(uint64_t& tile, uint32_t uid)
-    {
-        memcpy(&tile, &uid, sizeof(uint32_t));
-    }
-
     void set_tile_terrelevation(uint64_t& tile, GC_ubyte value)
     {
         bitshit::set_area<uint64_t, GC_ubyte>(
@@ -33,14 +28,6 @@ namespace gamecommon
             tile, value,
             TILE_STATE_POS_properties + TILE_STATE_POS_terrEffect,
             TILE_STATE_SIZE_terrEffect
-        );
-    }
-    void set_tile_thingcategory(uint64_t& tile, GC_ubyte value)
-    {
-        bitshit::set_area<uint64_t, GC_ubyte>(
-            tile, value,
-            TILE_STATE_POS_properties + TILE_STATE_POS_thingCategory,
-            TILE_STATE_SIZE_thingCategory
         );
     }
     void set_tile_thingid(uint64_t& tile, GC_ubyte value)
@@ -75,7 +62,7 @@ namespace gamecommon
             TILE_STATE_SIZE_customVar
         );
     }
-    // TODO: Some error handling/signaling if this fails?
+    // TODO: Some error handling/signaling if these fails?
     void set_tile_factionid(uint64_t& tile, uint32_t id)
     {
         if (id <= TILE_STATE_MAX_factionid)
@@ -87,21 +74,38 @@ namespace gamecommon
             );
         }
     }
+    void set_tile_faction_objid(uint64_t& tile, uint32_t id)
+    {
+        if (id <= TILE_STATE_MAX_factionid)
+        {
+            bitshit::set_area<uint64_t, uint32_t>(
+                tile, id,
+                TILE_STATE_POS_properties + TILE_STATE_POS_factionObjectID,
+                TILE_STATE_SIZE_factionObjectID
+            );
+        }
+    }
     void transfer_obj_to(uint64_t& from, uint64_t& to)
     {
         uint64_t objState = from;
         // Grab the bits containing only the info of the "object"
-        bitshit::set_area<uint64_t, uint64_t>(objState, 0x0, 0, TILE_STATE_SIZE - TILE_STATE_SIZE_objProperties);
+        bitshit::set_area<uint64_t, uint64_t>(
+            objState,
+            0x0,
+            0,
+            TILE_STATE_SIZE - TILE_STATE_SIZE_objProperties
+        );
         // Remove the "object" bits from the "from-tile"
-        bitshit::set_area<uint64_t, uint64_t>(from, 0x0, TILE_STATE_POS_properties + TILE_STATE_POS_objProperties, TILE_STATE_SIZE_objProperties);
+        bitshit::set_area<uint64_t, uint64_t>(
+            from,
+            0x0,
+            TILE_STATE_POS_properties + TILE_STATE_POS_objProperties,
+            TILE_STATE_SIZE_objProperties
+        );
         // Add the "object" bits to the "to-tile"
         to |= objState;
     }
 
-    uint32_t get_tile_uid(uint64_t tile)
-    {
-        return (uint32_t)tile; // Should work since first 32 bits are uid?
-    }
     GC_ubyte get_tile_terrelevation(uint64_t tile)
     {
         GC_ubyte output = 0;
@@ -129,16 +133,6 @@ namespace gamecommon
                 tile, output,
                 TILE_STATE_POS_properties + TILE_STATE_POS_terrEffect,
                 TILE_STATE_SIZE_terrEffect
-                );
-        return output;
-    }
-    GC_ubyte get_tile_thingcategory(uint64_t tile)
-    {
-        GC_ubyte output = 0;
-        bitshit::convert_area<uint64_t, GC_ubyte>(
-                tile, output,
-                TILE_STATE_POS_properties + TILE_STATE_POS_thingCategory,
-                TILE_STATE_SIZE_thingCategory
                 );
         return output;
     }
@@ -182,5 +176,40 @@ namespace gamecommon
                 );
         return output;
     }
-}
 
+    uint16_t get_tile_factionid(uint64_t tile)
+    {
+        uint16_t output = 0;
+        bitshit::convert_area<uint64_t, uint16_t>(
+            tile,
+            output,
+            TILE_STATE_POS_properties + TILE_STATE_POS_factionID,
+            TILE_STATE_SIZE_factionID
+        );
+        return output;
+    }
+
+    uint16_t get_tile_faction_objid(uint64_t tile)
+    {
+        uint16_t output = 0;
+        bitshit::convert_area<uint64_t, uint16_t>(
+            tile,
+            output,
+            TILE_STATE_POS_properties + TILE_STATE_POS_factionObjectID,
+            TILE_STATE_SIZE_factionObjectID
+        );
+        return output;
+    }
+
+    uint32_t get_tile_uid(uint64_t tile)
+    {
+        uint32_t output = 0;
+        bitshit::convert_area<uint64_t, uint32_t>(
+            tile,
+            output,
+            TILE_STATE_POS_properties + TILE_STATE_POS_ID,
+            TILE_STATE_SIZE_factionID + TILE_STATE_SIZE_factionObjectID
+        );
+        return output;
+    }
+}
