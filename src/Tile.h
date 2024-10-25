@@ -68,9 +68,20 @@ namespace gamecommon
         TILE_STATE_terrElevHighMountains = 	6
     };
 
-    enum TileStateEffectFlags
+    enum TileStateTemperature
     {
-        TILE_STATE_effectNone = 0x0
+        TILE_STATE_freezing =   0,
+        TILE_STATE_cold =       1,
+        TILE_STATE_chilly =     2,
+        TILE_STATE_mild =       3,
+        TILE_STATE_warm =       4,
+        TILE_STATE_hot =        5,
+        TILE_STATE_burning =    6
+    };
+
+    enum TileStateEffect
+    {
+        TILE_STATE_effectNone = 0
     };
 
     enum TileStateAction
