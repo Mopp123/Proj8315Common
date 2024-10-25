@@ -62,7 +62,7 @@ Custom variable (can be used for anything. For example this could be health for 
 29 = ^
 30 = ^
 
-Free bits atm (8)
+Free bits atm (7)
 -------------
 31
 32
@@ -71,7 +71,6 @@ Free bits atm (8)
 35
 36
 37
-38
 
 
 ID stuff below. Faction ID and Unique object ID which together forms an "actually unique object ID".
@@ -85,7 +84,8 @@ Faction id/index (NOTE: Not to be confused with faction's uuid in database)
 NOTE: We could make this maybe smaller in the future.. 1023 possible factions
 seem quite a lot for a single server...
 ----------------
-39 = type(unsigned 10 bit unsigned integer, val range 0 to 1023)
+38 = type(unsigned 10 bit unsigned integer, val range 0 to 1023)
+39 = ^
 40 = ^
 41 = ^
 42 = ^
@@ -94,11 +94,11 @@ seem quite a lot for a single server...
 45 = ^
 46 = ^
 47 = ^
-48 = ^
 
 "Faction object ID" (Identifies what object of a specific action this is. The faction is specified above)
 -------------------
-49 = type(unsigned 16 bit unsigned integer, val range 0 to 65535)
+48 = type(unsigned 16 bit unsigned integer, val range 0 to 65535)
+49 = ^
 50 = ^
 51 = ^
 52 = ^

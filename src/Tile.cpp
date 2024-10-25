@@ -3,6 +3,8 @@
 
 #include "BitShit.hpp"
 
+#include <iostream>
+
 
 namespace gamecommon
 {

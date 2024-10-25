@@ -13,7 +13,7 @@
 
 #define TILE_STATE_SIZE_terrElevation	5
 #define TILE_STATE_SIZE_terrType	    3
-#define TILE_STATE_SIZE_temperature    3
+#define TILE_STATE_SIZE_temperature     3
 #define TILE_STATE_SIZE_effect	        2
 
 #define TILE_STATE_SIZE_thingID		    8
@@ -24,7 +24,7 @@
 #define TILE_STATE_SIZE_factionObjectID 16
 // Atm need to take free bits into account since want to have id stuff at the end
 // but also we have some free bits atm between tile data and id stuff..
-#define TILE_STATE_SIZE_FREE_BITS 8
+#define TILE_STATE_SIZE_FREE_BITS 7
 #define TILE_STATE_SIZE_objProperties	(TILE_STATE_SIZE_thingID + TILE_STATE_SIZE_action + TILE_STATE_SIZE_dir + TILE_STATE_SIZE_customVar + TILE_STATE_SIZE_factionID + TILE_STATE_SIZE_factionObjectID + TILE_STATE_SIZE_FREE_BITS)
 
 
@@ -35,9 +35,9 @@
 //  -> ALSO bit stuff were modified -> id stuff takes 26 bits instead of prev 32
 //#define TILE_STATE_POS_properties	32
 #define TILE_STATE_POS_properties 0
-#define TILE_STATE_POS_ID         39
-#define TILE_STATE_POS_factionID  39
-#define TILE_STATE_POS_factionObjectID 49
+#define TILE_STATE_POS_ID         38
+#define TILE_STATE_POS_factionID  38
+#define TILE_STATE_POS_factionObjectID 48
 
 #define TILE_STATE_POS_terrElevation    0
 #define TILE_STATE_POS_terrType		    5
@@ -109,7 +109,7 @@ namespace gamecommon
     void set_tile_terrelevation (uint64_t& tile, GC_ubyte value);
     void set_tile_terrtype      (uint64_t& tile, GC_ubyte value);
     void set_tile_temperature   (uint64_t& tile, GC_ubyte value);
-    void set_tile_effect    (uint64_t& tile, GC_ubyte value);
+    void set_tile_effect        (uint64_t& tile, GC_ubyte value);
 
     void set_tile_thingid       (uint64_t& tile, GC_ubyte value);
     void set_tile_action        (uint64_t& tile, GC_ubyte value);
