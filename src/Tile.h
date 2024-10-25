@@ -70,13 +70,13 @@ namespace gamecommon
 
     enum TileStateTemperature
     {
-        TILE_STATE_freezing =   0,
-        TILE_STATE_cold =       1,
-        TILE_STATE_chilly =     2,
-        TILE_STATE_mild =       3,
-        TILE_STATE_warm =       4,
-        TILE_STATE_hot =        5,
-        TILE_STATE_burning =    6
+        TILE_STATE_freezing =  -3,
+        TILE_STATE_cold =      -2,
+        TILE_STATE_chilly =    -1,
+        TILE_STATE_mild =       0,
+        TILE_STATE_warm =       1,
+        TILE_STATE_hot =        2,
+        TILE_STATE_burning =    3
     };
 
     enum TileStateEffect
