@@ -57,15 +57,15 @@
 
 namespace gamecommon
 {
-    enum TileStateTerrElevation
+    enum TileStateTerrType
     {
-        TILE_STATE_terrElevAbyss = 		0,
-        TILE_STATE_terrElevMid1 = 		1,
-        TILE_STATE_terrElevMid2 = 		2,
-        TILE_STATE_terrElevHighland = 	3,
-        TILE_STATE_terrElevHills = 		4,
-        TILE_STATE_terrElevMountains = 		5,
-        TILE_STATE_terrElevHighMountains = 	6
+        TILE_STATE_terrTypeBarren =     0,
+        TILE_STATE_terrTypeWater =      1,
+        TILE_STATE_terrTypeRock =       2,
+        TILE_STATE_terrTypeFertile =    3,
+        TILE_STATE_terrTypeSnow =       4,
+        TILE_STATE_terrTypePending1 =   5,
+        TILE_STATE_terrTypePending2 =   6
     };
 
     // NOTE: index 0 has to be the most "default" value
