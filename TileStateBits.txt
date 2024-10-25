@@ -19,47 +19,51 @@ bit positions
 6 = ^
 7 = ^
 
+"Tile terrain temperature class"
+----------------------------------------------------------------------
+8 = Type(unsigned 3 bit integer, val range 0 to 7) (supposed to use as enum)
+9 = ^
+10 = ^
+
 "Tile effect"
 ----------------------------------------------------------------------
-8 = Type(unsigned 2 bit integer, val range 0 to 3 -> total 3 possible effects or 0 none) (supposed to use as enum)
-9 = ^
+11 = Type(unsigned 2 bit integer, val range 0 to 3 -> total 3 possible effects or 0 none) (supposed to use as enum)
+12 = ^
 
 
 "Thing ID" (This is to identify which kind of thing, ..rifleman, factory, tree, etc...)
 ----------
-10 = id (unsigned 8 bit integer, val range 0 to 255)
-11 = ^
-12 = ^
-13 = ^
-
+13 = id (unsigned 8 bit integer, val range 0 to 255)
+14 = ^
 15 = ^
 16 = ^
+
 17 = ^
 18 = ^
+19 = ^
+20 = ^
 
 "Current action"(What this "thing" in this tile is doing. For example: is this rifleman running somewhere, or just a tree wigglin' around on its' place)
 -------------------
-19 = type(unsigned 3 bit integer, val range 0 to 7) (supposed to use as enum)
-20 = ^
-21 = ^
+21 = type(unsigned 3 bit integer, val range 0 to 7) (supposed to use as enum)
+22 = ^
+23 = ^
 
 Facing direction (ilmansuunta)
 -------------------
-22 = type(unsigned 3 bit integer, val range 0 to 7) (supposed to use as enum)(N,NE,E.. u know..)
-23 = ^
-24 = ^
+24 = type(unsigned 3 bit integer, val range 0 to 7) (supposed to use as enum)(N,NE,E.. u know..)
+25 = ^
+26 = ^
 
 Custom variable (can be used for anything. For example this could be health for " Living things")
 -------------------------------------------------------------------------------------------------
-25 = var (unsigned 4 bit integer, val range 0 to 15)
-26 = ^
-27 = ^
+27 = var (unsigned 4 bit integer, val range 0 to 15)
 28 = ^
+29 = ^
+30 = ^
 
-Free bits atm (10)
+Free bits atm (8)
 -------------
-29
-30
 31
 32
 33

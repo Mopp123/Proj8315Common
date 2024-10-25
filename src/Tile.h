@@ -11,11 +11,11 @@
 // Sizes of different portions (exact size in BITS NOT BYTES!)
 #define TILE_STATE_SIZE			64
 
-#define TILE_STATE_SIZE_properties	32
-
 #define TILE_STATE_SIZE_terrElevation	5
 #define TILE_STATE_SIZE_terrType	    3
-#define TILE_STATE_SIZE_terrEffect	    2
+#define TILE_STATE_SIZE_temperature    3
+#define TILE_STATE_SIZE_effect	        2
+
 #define TILE_STATE_SIZE_thingID		    8
 #define TILE_STATE_SIZE_action		    3
 #define TILE_STATE_SIZE_dir		        3
@@ -24,7 +24,7 @@
 #define TILE_STATE_SIZE_factionObjectID 16
 // Atm need to take free bits into account since want to have id stuff at the end
 // but also we have some free bits atm between tile data and id stuff..
-#define TILE_STATE_SIZE_FREE_BITS 10
+#define TILE_STATE_SIZE_FREE_BITS 8
 #define TILE_STATE_SIZE_objProperties	(TILE_STATE_SIZE_thingID + TILE_STATE_SIZE_action + TILE_STATE_SIZE_dir + TILE_STATE_SIZE_customVar + TILE_STATE_SIZE_factionID + TILE_STATE_SIZE_factionObjectID + TILE_STATE_SIZE_FREE_BITS)
 
 
@@ -39,15 +39,16 @@
 #define TILE_STATE_POS_factionID  39
 #define TILE_STATE_POS_factionObjectID 49
 
-#define TILE_STATE_POS_terrElevation 0
-#define TILE_STATE_POS_terrType		 5
-#define TILE_STATE_POS_terrEffect	 8
+#define TILE_STATE_POS_terrElevation    0
+#define TILE_STATE_POS_terrType		    5
+#define TILE_STATE_POS_temperature      8
+#define TILE_STATE_POS_effect	        11
 
-#define TILE_STATE_POS_thingID		 10
-#define TILE_STATE_POS_action		 19
-#define TILE_STATE_POS_dir		     22
-#define TILE_STATE_POS_customVar	 25
-#define TILE_STATE_POS_objProperties 10
+#define TILE_STATE_POS_thingID		 13
+#define TILE_STATE_POS_action		 21
+#define TILE_STATE_POS_dir		     24
+#define TILE_STATE_POS_customVar	 27
+#define TILE_STATE_POS_objProperties 13
 
 // Max values of specific properties
 #define TILE_STATE_MAX_terrElevation 31
@@ -67,9 +68,9 @@ namespace gamecommon
         TILE_STATE_terrElevHighMountains = 	6
     };
 
-    enum TileStateTerrEffectFlags
+    enum TileStateEffectFlags
     {
-        TILE_STATE_terrEffectRain = 0x01
+        TILE_STATE_effectNone = 0x0
     };
 
     enum TileStateAction
@@ -105,9 +106,11 @@ namespace gamecommon
     };
 
 
-    void set_tile_terrelevation	(uint64_t& tile, GC_ubyte value);
+    void set_tile_terrelevation (uint64_t& tile, GC_ubyte value);
     void set_tile_terrtype      (uint64_t& tile, GC_ubyte value);
-    void set_tile_terreffect	(uint64_t& tile, GC_ubyte value);
+    void set_tile_temperature   (uint64_t& tile, GC_ubyte value);
+    void set_tile_effect    (uint64_t& tile, GC_ubyte value);
+
     void set_tile_thingid       (uint64_t& tile, GC_ubyte value);
     void set_tile_action        (uint64_t& tile, GC_ubyte value);
     void set_tile_facingdir     (uint64_t& tile, GC_ubyte value);
@@ -119,7 +122,9 @@ namespace gamecommon
 
     GC_ubyte get_tile_terrelevation (uint64_t tile);
     GC_ubyte get_tile_terrtype      (uint64_t tile);
-    GC_ubyte get_tile_terreffect    (uint64_t tile);
+    GC_ubyte get_tile_temperature   (uint64_t tile);
+    GC_ubyte get_tile_effect    (uint64_t tile);
+
     GC_ubyte get_tile_thingcategory (uint64_t tile);
     GC_ubyte get_tile_thingid   (uint64_t tile);
     GC_ubyte get_tile_action    (uint64_t tile);
