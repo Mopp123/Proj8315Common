@@ -59,11 +59,13 @@ namespace gamecommon
 {
     enum TileStateTerrType
     {
-        TILE_STATE_terrTypeBarren =     0,
+        TILE_STATE_terrTypeDirt =     0,
         TILE_STATE_terrTypeWater =      1,
         TILE_STATE_terrTypeRock =       2,
         TILE_STATE_terrTypeFertile =    3,
-        TILE_STATE_terrTypeSnow =       4,
+        // Dunes can be either sand dunes or snow dunes
+        TILE_STATE_terrTypeDunes =      4,
+
         TILE_STATE_terrTypePending1 =   5,
         TILE_STATE_terrTypePending2 =   6
     };
