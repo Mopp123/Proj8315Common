@@ -1,0 +1,116 @@
+
+64 bits
+00000000000000000000000000000000
+00000000000000000000000000000000
+bit positions
+
+
+"Tile terrain elevation"
+----------------------------------------------------------------------
+0 = Elevation (unsigned 5 bit integer, val range 0 to 31) (supposed to use as enum)
+1 = ^
+2 = ^
+3 = ^
+4 = ^
+
+"Tile terrain type"
+----------------------------------------------------------------------
+5 = Type(unsigned 3 bit integer, val range 0 to 7) (supposed to use as enum)
+6 = ^
+7 = ^
+
+"Tile terrain temperature class"
+----------------------------------------------------------------------
+8 = Type(unsigned 3 bit integer, val range 0 to 7) (supposed to use as enum)
+9 = ^
+10 = ^
+
+"Tile effect"
+----------------------------------------------------------------------
+11 = Type(unsigned 2 bit integer, val range 0 to 3 -> total 3 possible effects or 0 none) (supposed to use as enum)
+12 = ^
+
+
+"Thing ID" (This is to identify which kind of thing, ..rifleman, factory, tree, etc...)
+----------
+13 = id (unsigned 8 bit integer, val range 0 to 255)
+14 = ^
+15 = ^
+16 = ^
+
+17 = ^
+18 = ^
+19 = ^
+20 = ^
+
+"Current action"(What this "thing" in this tile is doing. For example: is this rifleman running somewhere, or just a tree wigglin' around on its' place)
+-------------------
+21 = type(unsigned 3 bit integer, val range 0 to 7) (supposed to use as enum)
+22 = ^
+23 = ^
+
+Facing direction (ilmansuunta)
+-------------------
+24 = type(unsigned 3 bit integer, val range 0 to 7) (supposed to use as enum)(N,NE,E.. u know..)
+25 = ^
+26 = ^
+
+Custom variable (can be used for anything. For example this could be health for " Living things")
+-------------------------------------------------------------------------------------------------
+27 = var (unsigned 4 bit integer, val range 0 to 15)
+28 = ^
+29 = ^
+30 = ^
+
+Free bits atm (7)
+-------------
+31
+32
+33
+34
+35
+36
+37
+
+
+ID stuff below. Faction ID and Unique object ID which together forms an "actually unique object ID".
+*Positions 39 to 48 is unigue faction ID(which is actually index in Factions list
+NOT the database id or anything like that!)
+*Positions 49 to 63 is unique object id for a faction. This means that multiple
+factions can share same "unique object id" but together with the faction id
+this becomes "really unique"
+
+Faction id/index (NOTE: Not to be confused with faction's uuid in database)
+NOTE: We could make this maybe smaller in the future.. 1023 possible factions
+seem quite a lot for a single server...
+----------------
+38 = type(unsigned 10 bit unsigned integer, val range 0 to 1023)
+39 = ^
+40 = ^
+41 = ^
+42 = ^
+43 = ^
+44 = ^
+45 = ^
+46 = ^
+47 = ^
+
+"Faction object ID" (Identifies what object of a specific action this is. The faction is specified above)
+-------------------
+48 = type(unsigned 16 bit unsigned integer, val range 0 to 65535)
+49 = ^
+50 = ^
+51 = ^
+52 = ^
+53 = ^
+54 = ^
+55 = ^
+
+56 = ^
+57 = ^
+58 = ^
+59 = ^
+60 = ^
+61 = ^
+62 = ^
+63 = ^

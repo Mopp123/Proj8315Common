@@ -1,0 +1,9 @@
+
+<unsigned 3 bit integer>
+
+0 = noEffect
+1 = fire
+2 = poison?
+3 = something?
+
+
