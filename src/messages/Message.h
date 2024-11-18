@@ -51,6 +51,11 @@
 #define MESSAGE_TYPE__FactionListResponse       0x15
 #define MESSAGE_TYPE__UpdatedFactions           0x16
 
+// Admin messages
+// NOTE: The values and offset at which these begin are just pulled out of my ass atm!
+// -> just make sure unique value for each message type...
+#define MESSAGE_TYPE__SpawnRequest              0x100
+
 // TODO: Remove this and create server message class defining the whole thing!!!
 #define MESSAGE_SIZE__ServerMessageResponse (MESSAGE_ENTRY_SIZE__header + 256)
 
@@ -112,7 +117,7 @@ namespace gamecommon
         }
 
     protected:
-        void addData(const GC_byte* pData, size_t dataSize);
+        void addData(const void* pData, size_t dataSize);
         // NOTE: Ment to prevent calling memcpy using dataSize greater than source's actual size
         // -> causing undefined behaviour/bytes..
         void addStr(const std::string& str, size_t allocSize);

@@ -131,7 +131,7 @@ namespace gamecommon
         return false;
     }
 
-    void Message::addData(const GC_byte* pData, size_t dataSize)
+    void Message::addData(const void* pData, size_t dataSize)
     {
         if (_pData == nullptr)
         {
