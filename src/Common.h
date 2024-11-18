@@ -23,7 +23,7 @@
 #define USER_PASSWD_SIZE 32
 #define MOTD_LEN        256 // NOT USED ANYMORE!!!
 
-#define NULL_USER User("", nullptr, 0, 0, 0)
+#define NULL_USER User("", nullptr, 0, false, 0, 0)
 
 #define USER_OBSERVE_RADIUS 15
 #define USER_OBSERVE_WIDTH (15 * 2 + 1)
@@ -45,6 +45,7 @@ namespace gamecommon
         GC_byte _nameData[USER_NAME_SIZE];
         std::string _nameStr = "";
         bool _isLoggedIn = false;
+        bool _isAdmin = false;
 
         int _xPos = 0;
         int _zPos = 0;
@@ -56,7 +57,14 @@ namespace gamecommon
 
     public:
         User() {}
-        User(const std::string& id, const GC_byte* nameData, size_t nameSize, int tileX, int tileZ);
+        User(
+            const std::string& id,
+            const GC_byte* nameData,
+            size_t nameSize,
+            bool isAdmin,
+            int tileX,
+            int tileZ
+        );
         User(const User& other);
 
         void updateObserveProperties(int x, int z, int radius);
@@ -67,7 +75,8 @@ namespace gamecommon
         inline const int& getZ() const { return _zPos; }
         inline const int& getObserveRadius() const { return _observeRadius; }
 
-        inline  bool isLoggedIn() const { return _isLoggedIn; }
+        inline bool isLoggedIn() const { return _isLoggedIn; }
+        inline bool isAdmin() const { return _isAdmin; }
 
         inline const std::string& getID() const { return _id; }
         inline const GC_byte* getNameData() const { return _nameData; }

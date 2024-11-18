@@ -2,8 +2,16 @@
 
 namespace gamecommon
 {
-    User::User(const std::string& id,  const GC_byte* nameData, size_t nameSize, int tileX, int tileZ) :
+    User::User(
+        const std::string& id,
+        const GC_byte* nameData,
+        size_t nameSize,
+        bool isAdmin,
+        int tileX,
+        int tileZ
+    ) :
         _id(id),
+        _isAdmin(isAdmin),
         _xPos(tileX),
         _zPos(tileZ)
     {
@@ -19,6 +27,7 @@ namespace gamecommon
         _id(other._id),
         _nameStr(other._nameStr),
         _isLoggedIn(other._isLoggedIn),
+        _isAdmin(other._isAdmin),
         _xPos(other._xPos),
         _zPos(other._zPos),
         _observeRadius(other._observeRadius),
