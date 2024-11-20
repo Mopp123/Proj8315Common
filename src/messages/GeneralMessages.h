@@ -3,7 +3,7 @@
 #include "Message.h"
 
 #define MESSAGE_REQUIRED_SIZE__LoginRequest (MESSAGE_ENTRY_SIZE__header + USER_NAME_SIZE + USER_PASSWD_SIZE)
-#define MESSAGE_REQUIRED_SIZE__LoginResponse (MESSAGE_ENTRY_SIZE__header + 1 + FACTION_NETW_SIZE + MESSAGE_ERR_STR_SIZE)
+#define MESSAGE_REQUIRED_SIZE__LoginResponse (MESSAGE_ENTRY_SIZE__header + 1 + 1 + FACTION_NETW_SIZE + MESSAGE_ERR_STR_SIZE)
 #define MESSAGE_REQUIRED_SIZE__UserRegisterRequest (MESSAGE_ENTRY_SIZE__header + USER_NAME_SIZE + USER_PASSWD_SIZE * 2)
 #define MESSAGE_REQUIRED_SIZE__UserRegisterResponse (MESSAGE_ENTRY_SIZE__header + 1 + MESSAGE_ERR_STR_SIZE)
 
@@ -32,15 +32,17 @@ namespace gamecommon
     {
     private:
         bool _success = false;
+        bool _isAdmin = false;
         Faction _faction = NULL_FACTION;
         std::string _error;
 
     public:
         LoginResponse(const GC_byte* pData, size_t dataSize);
-        LoginResponse(bool success, Faction faction, const std::string error);
+        LoginResponse(bool success, bool isAdmin, Faction faction, const std::string error);
         LoginResponse(const LoginResponse& other);
         ~LoginResponse() {}
         inline bool getSuccess() const { return _success; }
+        inline bool isAdmin() const { return _isAdmin; }
         inline const Faction& getFaction() const { return _faction; }
         inline const std::string& getError() const { return _error; }
     };
