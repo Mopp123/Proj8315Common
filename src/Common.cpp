@@ -37,6 +37,32 @@ namespace gamecommon
         memcpy(_nameData, other._nameData, USER_NAME_SIZE);
     }
 
+    void User::set(
+        const std::string& id,
+        const std::string& name,
+        bool isLoggedIn,
+        bool isAdmin,
+        int tileX,
+        int tileZ,
+        const std::string& factionName
+    )
+    {
+        size_t nameSize = name.size();
+        if (nameSize > USER_NAME_SIZE)
+            nameSize = USER_NAME_SIZE;
+        memset(_nameData, 0, USER_NAME_SIZE);
+        memcpy(_nameData, name.data(), nameSize);
+        _nameStr = name;
+
+        _isLoggedIn = isLoggedIn;
+        _isAdmin = isAdmin;
+
+        _xPos = tileX;
+        _zPos = tileZ;
+
+        _factionName = factionName;
+    }
+
     void User::updateObserveProperties(int x, int z, int radius)
     {
         _xPos = x;

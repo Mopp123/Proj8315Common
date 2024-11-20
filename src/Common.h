@@ -67,6 +67,16 @@ namespace gamecommon
         );
         User(const User& other);
 
+        void set(
+            const std::string& id,
+            const std::string& name,
+            bool isLoggedIn,
+            bool isAdmin,
+            int tileX,
+            int tileZ,
+            const std::string& factionName
+        );
+
         void updateObserveProperties(int x, int z, int radius);
         bool operator==(const User& other) const;
         bool operator!=(const User& other) const;
