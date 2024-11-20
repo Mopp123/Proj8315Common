@@ -54,17 +54,20 @@ namespace gamecommon
         }
     }
 
-    LoginResponse::LoginResponse(bool success, Faction faction, const std::string error) :
+    LoginResponse::LoginResponse(bool success, bool isAdmin, Faction faction, const std::string error) :
         Message(MESSAGE_TYPE__LoginResponse, MESSAGE_REQUIRED_SIZE__LoginResponse)
     {
         if (_isValid)
         {
             _success = success;
+            _isAdmin = isAdmin;
             _faction = faction;
             _error = error;
 
             GC_byte successByte = (GC_byte)success;
             addData(&successByte, 1);
+            GC_byte adminByte = (GC_byte)isAdmin;
+            addData(&adminByte, 1);
             // NOTE: Works only bacause of alignment of Faction class and FACTION_NETW_SIZE
             // TODO: Make more proper!!
             addData((GC_byte*)&faction, FACTION_NETW_SIZE);
@@ -79,6 +82,7 @@ namespace gamecommon
         if (_isValid)
         {
             _success = other._success;
+            _isAdmin = other._isAdmin;
             _faction = other._faction;
             _error = other._error;
         }
