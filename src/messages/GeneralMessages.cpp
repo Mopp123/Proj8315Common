@@ -45,12 +45,13 @@ namespace gamecommon
         if (_isValid)
         {
             memcpy(&_success, _pData + MESSAGE_ENTRY_SIZE__header, 1);
+            memcpy(&_isAdmin, _pData + MESSAGE_ENTRY_SIZE__header + 1, 1);
 
-            std::string factionID = std::string(_pData + (MESSAGE_ENTRY_SIZE__header + 1), UUID_SIZE);
-            std::string factionName = std::string(_pData + (MESSAGE_ENTRY_SIZE__header + 1 + UUID_SIZE), FACTION_NAME_SIZE);
+            std::string factionID = std::string(_pData + (MESSAGE_ENTRY_SIZE__header + 1 + 1), UUID_SIZE);
+            std::string factionName = std::string(_pData + (MESSAGE_ENTRY_SIZE__header + 1 + 1 + UUID_SIZE), FACTION_NAME_SIZE);
             _faction = Faction(factionID, factionName);
 
-            _error = std::string(_pData + (MESSAGE_ENTRY_SIZE__header + 1 + UUID_SIZE + FACTION_NAME_SIZE), MESSAGE_ERR_STR_SIZE);
+            _error = std::string(_pData + (MESSAGE_ENTRY_SIZE__header + 1 + 1 + UUID_SIZE + FACTION_NAME_SIZE), MESSAGE_ERR_STR_SIZE);
         }
     }
 
