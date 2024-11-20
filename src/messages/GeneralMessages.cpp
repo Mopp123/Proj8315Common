@@ -46,22 +46,35 @@ namespace gamecommon
         {
             memcpy(&_success, _pData + MESSAGE_ENTRY_SIZE__header, 1);
             memcpy(&_isAdmin, _pData + MESSAGE_ENTRY_SIZE__header + 1, 1);
+            memcpy(&_tileX, _pData + MESSAGE_ENTRY_SIZE__header + 1 + 1, sizeof(int32_t));
+            memcpy(&_tileZ, _pData + MESSAGE_ENTRY_SIZE__header + 1 + 1 + sizeof(int32_t), sizeof(int32_t));
 
-            std::string factionID = std::string(_pData + (MESSAGE_ENTRY_SIZE__header + 1 + 1), UUID_SIZE);
-            std::string factionName = std::string(_pData + (MESSAGE_ENTRY_SIZE__header + 1 + 1 + UUID_SIZE), FACTION_NAME_SIZE);
+            const size_t factionDataStartPos = MESSAGE_ENTRY_SIZE__header + 1 + 1 + sizeof(int32_t) * 2;
+            std::string factionID = std::string(_pData + (factionDataStartPos), UUID_SIZE);
+            std::string factionName = std::string(_pData + (factionDataStartPos + UUID_SIZE), FACTION_NAME_SIZE);
             _faction = Faction(factionID, factionName);
 
-            _error = std::string(_pData + (MESSAGE_ENTRY_SIZE__header + 1 + 1 + UUID_SIZE + FACTION_NAME_SIZE), MESSAGE_ERR_STR_SIZE);
+            const size_t errorMsgStartPos = factionDataStartPos + UUID_SIZE + FACTION_NAME_SIZE;
+            _error = std::string(_pData + (errorMsgStartPos), MESSAGE_ERR_STR_SIZE);
         }
     }
 
-    LoginResponse::LoginResponse(bool success, bool isAdmin, Faction faction, const std::string error) :
+    LoginResponse::LoginResponse(
+        bool success,
+        bool isAdmin,
+        int32_t tileX,
+        int32_t tileZ,
+        Faction faction,
+        const std::string error
+    ) :
         Message(MESSAGE_TYPE__LoginResponse, MESSAGE_REQUIRED_SIZE__LoginResponse)
     {
         if (_isValid)
         {
             _success = success;
             _isAdmin = isAdmin;
+            _tileX = tileX;
+            _tileZ = tileZ;
             _faction = faction;
             _error = error;
 
@@ -69,6 +82,8 @@ namespace gamecommon
             addData(&successByte, 1);
             GC_byte adminByte = (GC_byte)isAdmin;
             addData(&adminByte, 1);
+            addData(&tileX, sizeof(int32_t));
+            addData(&tileZ, sizeof(int32_t));
             // NOTE: Works only bacause of alignment of Faction class and FACTION_NETW_SIZE
             // TODO: Make more proper!!
             addData((GC_byte*)&faction, FACTION_NETW_SIZE);
@@ -84,6 +99,8 @@ namespace gamecommon
         {
             _success = other._success;
             _isAdmin = other._isAdmin;
+            _tileX = other._tileX;
+            _tileZ = other._tileZ;
             _faction = other._faction;
             _error = other._error;
         }
