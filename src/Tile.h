@@ -53,6 +53,9 @@
 
 // Max values of specific properties
 #define TILE_STATE_MAX_terrElevation 31
+#define TILE_STATE_MAX_terrType      6
+#define TILE_STATE_MAX_temperature   6
+
 #define TILE_STATE_MAX_action 7
 #define TILE_STATE_MAX_factionid (uint32_t)0x3FF
 
