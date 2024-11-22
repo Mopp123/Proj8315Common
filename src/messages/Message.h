@@ -55,6 +55,7 @@
 // NOTE: The values and offset at which these begin are just pulled out of my ass atm!
 // -> just make sure unique value for each message type...
 #define MESSAGE_TYPE__SpawnRequest              0x100
+#define MESSAGE_TYPE__TerrainModRequest         0x101
 
 // TODO: Remove this and create server message class defining the whole thing!!!
 #define MESSAGE_SIZE__ServerMessageResponse (MESSAGE_ENTRY_SIZE__header + 256)
