@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <string>
 #include "Common.h"
 
 // Size of the full state (in bytes)
@@ -148,7 +149,12 @@ namespace gamecommon
     uint16_t get_tile_factionid	(uint64_t tile);
     uint16_t get_tile_faction_objid (uint64_t tile);
     uint32_t get_tile_uid           (uint64_t tile);
+
+    std::string temperature_value_to_string(TileStateTemperature value);
+
+    // *Need to also give temperature to distinguish between sand dunes and snow dunes...
+    std::string terrain_type_value_to_string(
+        TileStateTerrType terrainType,
+        TileStateTemperature temperatureValue
+    );
 }
-
-
-
