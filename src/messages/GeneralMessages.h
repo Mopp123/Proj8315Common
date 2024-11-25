@@ -23,7 +23,7 @@ namespace gamecommon
         ServerInfoResponse(const std::string& message);
         ServerInfoResponse(const ServerInfoResponse& other);
         ~ServerInfoResponse() {}
-        inline std::string getMessage() const { return std::string(_message, USER_NAME_SIZE); }
+        inline std::string getMessage() const { return std::string(_message, SERVER_INFO_MESSAGE_SIZE); }
         inline const GC_byte* getMessageData() const { return _message; }
     };
 
