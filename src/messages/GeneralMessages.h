@@ -36,7 +36,7 @@ namespace gamecommon
 
     public:
         LoginRequest(const GC_byte* pData, size_t dataSize);
-        LoginRequest(GC_byte* username, size_t usernameSize, GC_byte* password, size_t passwordSize);
+        LoginRequest(const std::string& username, const std::string& password);
         LoginRequest(const LoginRequest& other);
         ~LoginRequest() {}
         inline std::string getUsername() const { return std::string(_username, USER_NAME_SIZE); }

@@ -54,16 +54,37 @@ namespace gamecommon
         }
     }
 
-    LoginRequest::LoginRequest(GC_byte* username, size_t usernameSize, GC_byte* password, size_t passwordSize) :
+    LoginRequest::LoginRequest(const std::string& username, const std::string& password) :
         Message(MESSAGE_TYPE__LoginRequest, MESSAGE_REQUIRED_SIZE__LoginRequest)
     {
+        if (username.size() > USER_NAME_SIZE)
+        {
+            MsgDebug::log(
+                "@LoginRequest::LoginRequest "
+                "username size too big: " + std::to_string(username.size()) + " "
+                "max username size: " + std::to_string(USER_NAME_SIZE),
+                MsgDebug::MessageType::ERROR
+            );
+            _isValid = false;
+        }
+        if (password.size() > USER_PASSWD_SIZE)
+        {
+            MsgDebug::log(
+                "@LoginRequest::LoginRequest "
+                "password size too big: " + std::to_string(username.size()) + " "
+                "max password size: " + std::to_string(USER_PASSWD_SIZE),
+                MsgDebug::MessageType::ERROR
+            );
+            _isValid = false;
+        }
+
         if (_isValid)
         {
-            addData(username, USER_NAME_SIZE);
-            addData(password, USER_PASSWD_SIZE);
+            addStr(username, USER_NAME_SIZE);
+            addStr(password, USER_PASSWD_SIZE);
 
-            memcpy(_username, username, USER_NAME_SIZE);
-            memcpy(_password, password, USER_PASSWD_SIZE);
+            memcpy(_username, username.data(), username.size());
+            memcpy(_password, password.data(), password.size());
         }
     }
 
