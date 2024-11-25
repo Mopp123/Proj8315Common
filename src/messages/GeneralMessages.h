@@ -2,6 +2,9 @@
 
 #include "Message.h"
 
+#define SERVER_INFO_MESSAGE_SIZE 200
+#define MESSAGE_REQUIRED_SIZE__ServerInfo (MESSAGE_ENTRY_SIZE__header + SERVER_INFO_MESSAGE_SIZE)
+
 #define MESSAGE_REQUIRED_SIZE__LoginRequest (MESSAGE_ENTRY_SIZE__header + USER_NAME_SIZE + USER_PASSWD_SIZE)
 #define MESSAGE_REQUIRED_SIZE__LoginResponse (MESSAGE_ENTRY_SIZE__header + 1 + 1 + sizeof(int32_t) * 2 + FACTION_NETW_SIZE + MESSAGE_ERR_STR_SIZE)
 #define MESSAGE_REQUIRED_SIZE__UserRegisterRequest (MESSAGE_ENTRY_SIZE__header + USER_NAME_SIZE + USER_PASSWD_SIZE * 2)
@@ -10,6 +13,21 @@
 
 namespace gamecommon
 {
+    class ServerInfoResponse : public Message
+    {
+    private:
+        GC_byte _message[SERVER_INFO_MESSAGE_SIZE];
+
+    public:
+        ServerInfoResponse(const GC_byte* pData, size_t dataSize);
+        ServerInfoResponse(const std::string& message);
+        ServerInfoResponse(const ServerInfoResponse& other);
+        ~ServerInfoResponse() {}
+        inline std::string getMessage() const { return std::string(_message, USER_NAME_SIZE); }
+        inline const GC_byte* getMessageData() const { return _message; }
+    };
+
+
     class LoginRequest : public Message
     {
     private:

@@ -3,6 +3,47 @@
 
 namespace gamecommon
 {
+    ServerInfoResponse::ServerInfoResponse(const GC_byte* pData, size_t dataSize) :
+        Message(pData, dataSize, MESSAGE_REQUIRED_SIZE__ServerInfo)
+    {
+        if (_isValid)
+        {
+            memcpy(_message, _pData + MESSAGE_ENTRY_SIZE__header, SERVER_INFO_MESSAGE_SIZE);
+        }
+    }
+
+    ServerInfoResponse::ServerInfoResponse(const std::string& message) :
+        Message(MESSAGE_TYPE__ServerMessage, MESSAGE_REQUIRED_SIZE__ServerInfo)
+    {
+        if (message.size() > SERVER_INFO_MESSAGE_SIZE)
+        {
+            MsgDebug::log(
+                "@ServerInfoResponse::ServerInfoResponse "
+                "message too big: " + std::to_string(message.size()) + " "
+                "max message size: " + std::to_string(SERVER_INFO_MESSAGE_SIZE),
+                MsgDebug::MessageType::ERROR
+            );
+            _isValid = false;
+        }
+
+        if (_isValid)
+        {
+            addStr(message, SERVER_INFO_MESSAGE_SIZE);
+            memcpy(_message, message.data(), message.size());
+        }
+    }
+
+    ServerInfoResponse::ServerInfoResponse(const ServerInfoResponse& other) :
+        Message(other._pData, other._dataSize, MESSAGE_REQUIRED_SIZE__ServerInfo)
+    {
+        if (_isValid)
+        {
+            memset(_message, 0, SERVER_INFO_MESSAGE_SIZE);
+            memcpy(_message, _pData + MESSAGE_ENTRY_SIZE__header, SERVER_INFO_MESSAGE_SIZE);
+        }
+    }
+
+
     LoginRequest::LoginRequest(const GC_byte* pData, size_t dataSize) :
         Message(pData, dataSize, MESSAGE_REQUIRED_SIZE__LoginRequest)
     {

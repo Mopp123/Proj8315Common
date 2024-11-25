@@ -15,12 +15,12 @@
 
 #define NULL_MESSAGE Message{}
 
-#define MESSAGE_INFO_MESSAGE_LEN 256
+//#define MESSAGE_INFO_MESSAGE_LEN 256
 #define MESSAGE_ERR_STR_SIZE 256
 
 // OLD MESSAGE TYPES! To be changed...
 // TODO: Delete all old messages -> conflicts with new ones
-#define MESSAGE_TYPE__ServerMessage             0x1
+#define MESSAGE_TYPE__ServerInfo             0x1
 //#define MESSAGE_TYPE__UserLogin            	0x2
 //#define MESSAGE_TYPE__UserLogout            	0x3
 //#define MESSAGE_TYPE__UserRegister            	0x4
