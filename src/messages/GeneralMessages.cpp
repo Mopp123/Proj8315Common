@@ -13,7 +13,7 @@ namespace gamecommon
     }
 
     ServerInfoResponse::ServerInfoResponse(const std::string& message) :
-        Message(MESSAGE_TYPE__ServerMessage, MESSAGE_REQUIRED_SIZE__ServerInfo)
+        Message(MESSAGE_TYPE__ServerInfo, MESSAGE_REQUIRED_SIZE__ServerInfo)
     {
         if (message.size() > SERVER_INFO_MESSAGE_SIZE)
         {
