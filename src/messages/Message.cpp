@@ -1,6 +1,11 @@
 #include "Message.h"
 #include <iostream>
 
+#include "AdminMessages.h"
+#include "GeneralMessages.h"
+#include "ObjMessages.h"
+#include "WorldMessages.h"
+
 
 #define LS_DEBUG_MESSAGE_TAG__INFO          ""
 #define LS_DEBUG_MESSAGE_TAG__WARNING       "(Warning)"
@@ -10,6 +15,41 @@
 
 namespace gamecommon
 {
+    // TODO: Some more clever way of dealing with this...
+    size_t get_message_size(int32_t messageType)
+    {
+        switch (messageType)
+        {
+            case MESSAGE_TYPE__ServerInfo : return MESSAGE_REQUIRED_SIZE__ServerInfo;
+            case MESSAGE_TYPE__LoginRequest : return MESSAGE_REQUIRED_SIZE__LoginRequest;
+            case MESSAGE_TYPE__LoginResponse : return MESSAGE_REQUIRED_SIZE__LoginResponse;
+            case MESSAGE_TYPE__LogoutRequest : return MESSAGE_ENTRY_SIZE__header; // NOTE: not sure is this right atm...
+            // Theres no logout response atm!
+            //case MESSAGE_TYPE__LogoutResponse : return 0;
+            case MESSAGE_TYPE__UserRegisterRequest : return MESSAGE_REQUIRED_SIZE__UserRegisterRequest;
+            case MESSAGE_TYPE__UserRegisterResponse : return MESSAGE_REQUIRED_SIZE__UserRegisterResponse;
+            case MESSAGE_TYPE__ObjInfoLibRequest : return MESSAGE_ENTRY_SIZE__header; // NOTE: not sure is this right atm...
+            // Not sure how to deal with this atm since currently its' size is dynamic
+            // TODO: This probably should be static like everything else!
+            //case MESSAGE_TYPE__ObjInfoLibResponse : return 0;
+            case MESSAGE_TYPE__CreateFactionRequest : return MESSAGE_REQUIRED_SIZE__CreateFactionRequest;
+            case MESSAGE_TYPE__CreateFactionResponse : return MESSAGE_REQUIRED_SIZE__CreateFactionResponse;
+
+            case MESSAGE_TYPE__WorldState : return MESSAGE_REQUIRED_SIZE__WorldStateMsg;
+            case MESSAGE_TYPE__UpdateObserverProperties : return MESSAGE_REQUIRED_SIZE__UpdateObserverMsg;
+            // Theres no more FactionListRequests -> client gets them automatically
+            //case MESSAGE_TYPE__FactionListRequest : return 0;
+            case MESSAGE_TYPE__FactionListResponse : return MESSAGE_SIZE_CAP__FactionListResponse;
+            case MESSAGE_TYPE__UpdatedFactions : return MESSAGE_SIZE_CAP__UpdatedFactionsMsg;
+
+            // Admin messages
+            case MESSAGE_TYPE__SpawnRequest : return MESSAGE_REQUIRED_SIZE__SpawnRequest;
+            case MESSAGE_TYPE__TerrainModRequest : return MESSAGE_REQUIRED_SIZE__TerrainModRequest;
+
+            default : return 0;
+        }
+    }
+
     Message::Message(const GC_byte* pData, size_t dataSize, size_t requiredSize, bool dynamicSize)
     {
         if (pData != nullptr)

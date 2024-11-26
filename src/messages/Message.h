@@ -71,6 +71,9 @@
 
 namespace gamecommon
 {
+    // TODO: Some more clever way of dealing with this...
+    size_t get_message_size(int32_t messageType);
+
     /*
      * Base class for all client - server messaging.
      * Message does all the validation when constructed based on the data its being contructed out of.
