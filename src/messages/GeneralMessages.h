@@ -2,7 +2,8 @@
 
 #include "Message.h"
 
-#define SERVER_INFO_MESSAGE_SIZE 200
+// Has to be the same as in database
+#define SERVER_INFO_MESSAGE_SIZE 400
 #define MESSAGE_REQUIRED_SIZE__ServerInfo (MESSAGE_ENTRY_SIZE__header + SERVER_INFO_MESSAGE_SIZE)
 
 #define MESSAGE_REQUIRED_SIZE__LoginRequest (MESSAGE_ENTRY_SIZE__header + USER_NAME_SIZE + USER_PASSWD_SIZE)

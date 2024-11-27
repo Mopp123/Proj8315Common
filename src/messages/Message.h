@@ -15,7 +15,6 @@
 
 #define NULL_MESSAGE Message{}
 
-#define MESSAGE_INFO_MESSAGE_LEN 256
 #define MESSAGE_ERR_STR_SIZE 256
 
 // OLD MESSAGE TYPES! To be changed...
